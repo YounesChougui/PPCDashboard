@@ -1,1 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Landscape Analysis</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for creating charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts for a clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Using Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <!-- Main container for the dashboard -->
+    <div class="w-full max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Business Landscape Analysis</h1>
+            <p class="text-gray-500 mt-2">Distribution of Firms by Industry and Enterprise Size</p>
+        </div>
+
+        <!-- Section 1: Overall Industry Comparison -->
+        <div class="mb-12">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4">Total Firms by Industry</h2>
+             <div class="relative h-[70vh]">
+                 <canvas id="industryTotalChart"></canvas>
+            </div>
+        </div>
+
+        <hr class="my-10 border-gray-200">
+
+        <!-- Section 2: Detailed Industry Drilldown -->
+        <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Industry Drilldown</h2>
+            <p class="text-gray-500 mb-6">Select an industry to see the breakdown of firm sizes.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left side: Controls and Insights -->
+                <div class="lg:col-span-1 flex flex-col gap-6">
+                    <div>
+                        <label for="industrySelector" class="block text-sm font-medium text-gray-700 mb-2">Select Industry:</label>
+                        <select id="industrySelector" class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></select>
+                    </div>
+                    <div id="analysis" class="bg-gray-50 rounded-xl p-6 space-y-4">
+                        <!-- Key insights will be dynamically inserted here -->
+                    </div>
+                </div>
+                <!-- Right side: Doughnut Chart -->
+                <div class="lg:col-span-2 relative h-[50vh] min-h-[350px]">
+                    <canvas id="sizeDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rawData = `
+IndustriesEnterprise SizeFirms
+Agriculture, Forestry, Fishing and Hunting<5 employees47
+Agriculture, Forestry, Fishing and Hunting5-9 employees22
+Agriculture, Forestry, Fishing and Hunting10-19 employees18
+Agriculture, Forestry, Fishing and Hunting<20 employees87
+Agriculture, Forestry, Fishing and Hunting20-99 employees21
+Agriculture, Forestry, Fishing and Hunting<500 employees110
+Agriculture, Forestry, Fishing and Hunting500+ employees7
+Mining, Quarrying, and Oil and Gas Extraction<5 employees8
+Mining, Quarrying, and Oil and Gas Extraction5-9 employees3
+Mining, Quarrying, and Oil and Gas Extraction10-19 employees4
+Mining, Quarrying, and Oil and Gas Extraction<20 employees15
+Mining, Quarrying, and Oil and Gas Extraction20-99 employees3
+Mining, Quarrying, and Oil and Gas Extraction100-499 employees4
+Mining, Quarrying, and Oil and Gas Extraction<500 employees22
+Mining, Quarrying, and Oil and Gas Extraction500+ employees16
+Utilities<5 employees6
+Utilities<20 employees8
+Utilities20-99 employees4
+Utilities100-499 employees8
+Utilities<500 employees20
+Utilities500+ employees23
+Construction<5 employees1,356
+Construction5-9 employees385
+Construction10-19 employees274
+Construction<20 employees2,015
+Construction20-99 employees262
+Construction100-499 employees77
+Construction<500 employees2,354
+Construction500+ employees144
+Manufacturing<5 employees413
+Manufacturing5-9 employees199
+Manufacturing10-19 employees218
+Manufacturing<20 employees830
+Manufacturing20-99 employees320
+Manufacturing100-499 employees267
+Manufacturing<500 employees1,417
+Manufacturing500+ employees528
+Wholesale Trade<5 employees1,022
+Wholesale Trade5-9 employees386
+Wholesale Trade10-19 employees329
+Wholesale Trade<20 employees1,737
+Wholesale Trade20-99 employees384
+Wholesale Trade100-499 employees292
+Wholesale Trade<500 employees2,413
+Wholesale Trade500+ employees650
+Retail Trade<5 employees2,077
+Retail Trade5-9 employees558
+Retail Trade10-19 employees296
+Retail Trade<20 employees2,931
+Retail Trade20-99 employees254
+Retail Trade100-499 employees106
+Retail Trade<500 employees3,291
+Retail Trade500+ employees378
+Transportation and Warehousing<5 employees681
+Transportation and Warehousing5-9 employees135
+Transportation and Warehousing10-19 employees84
+Transportation and Warehousing<20 employees900
+Transportation and Warehousing20-99 employees164
+Transportation and Warehousing100-499 employees150
+Transportation and Warehousing<500 employees1,214
+Transportation and Warehousing500+ employees343
+Information<5 employees289
+Information5-9 employees89
+Information10-19 employees52
+Information<20 employees430
+Information20-99 employees88
+Information100-499 employees85
+Information<500 employees603
+Information500+ employees251
+Finance and Insurance<5 employees499
+Finance and Insurance5-9 employees126
+Finance and Insurance10-19 employees67
+Finance and Insurance<20 employees692
+Finance and Insurance20-99 employees167
+Finance and Insurance100-499 employees114
+Finance and Insurance<500 employees973
+Finance and Insurance500+ employees364
+Real Estate and Rental and Leasing<5 employees762
+Real Estate and Rental and Leasing5-9 employees86
+Real Estate and Rental and Leasing10-19 employees48
+Real Estate and Rental and Leasing<20 employees896
+Real Estate and Rental and Leasing20-99 employees52
+Real Estate and Rental and Leasing100-499 employees61
+Real Estate and Rental and Leasing<500 employees1,009
+Real Estate and Rental and Leasing500+ employees134
+Professional, Scientific, and Technical Services<5 employees1,860
+Professional, Scientific, and Technical Services5-9 employees338
+Professional, Scientific, and Technical Services10-19 employees252
+Professional, Scientific, and Technical Services<20 employees2,450
+Professional, Scientific, and Technical Services20-99 employees321
+Professional, Scientific, and Technical Services100-499 employees216
+Professional, Scientific, and Technical Services<500 employees2,987
+Professional, Scientific, and Technical Services500+ employees442
+Management of Companies and Enterprises<5 employees26
+Management of Companies and Enterprises5-9 employees7
+Management of Companies and Enterprises10-19 employees7
+Management of Companies and Enterprises<20 employees40
+Management of Companies and Enterprises20-99 employees43
+Management of Companies and Enterprises100-499 employees73
+Management of Companies and Enterprises<500 employees156
+Management of Companies and Enterprises500+ employees360
+Administrative and Support and Waste Management and Remediation Services<5 employees703
+Administrative and Support and Waste Management and Remediation Services5-9 employees179
+Administrative and Support and Waste Management and Remediation Services10-19 employees135
+Administrative and Support and Waste Management and Remediation Services<20 employees1,017
+Administrative and Support and Waste Management and Remediation Services20-99 employees174
+Administrative and Support and Waste Management and Remediation Services100-499 employees101
+Administrative and Support and Waste Management and Remediation Services<500 employees1,292
+Administrative and Support and Waste Management and Remediation Services500+ employees324
+Educational Services<5 employees158
+Educational Services5-9 employees34
+Educational Services10-19 employees28
+Educational Services<20 employees220
+Educational Services20-99 employees27
+Educational Services100-499 employees11
+Educational Services<500 employees258
+Educational Services500+ employees40
+Health Care and Social Assistance<5 employees857
+Health Care and Social Assistance5-9 employees341
+Health Care and Social Assistance10-19 employees281
+Health Care and Social Assistance<20 employees1,479
+Health Care and Social Assistance20-99 employees344
+Health Care and Social Assistance100-499 employees79
+Health Care and Social Assistance<500 employees1,902
+Health Care and Social Assistance500+ employees178
+Arts, Entertainment, and Recreation<5 employees214
+Arts, Entertainment, and Recreation5-9 employees44
+Arts, Entertainment, and Recreation10-19 employees32
+Arts, Entertainment, and Recreation<20 employees290
+Arts, Entertainment, and Recreation20-99 employees29
+Arts, Entertainment, and Recreation100-499 employees17
+Arts, Entertainment, and Recreation<500 employees336
+Arts, Entertainment, and Recreation500+ employees46
+Accommodation and Food Services<5 employees842
+Accommodation and Food Services5-9 employees472
+Accommodation and Food Services10-19 employees316
+Accommodation and Food Services<20 employees1,630
+Accommodation and Food Services20-99 employees291
+Accommodation and Food Services100-499 employees44
+Accommodation and Food Services<500 employees1,965
+Accommodation and Food Services500+ employees157
+Other Services (except Public Administration)<5 employees1,134
+Other Services (except Public Administration)5-9 employees286
+Other Services (except Public Administration)10-19 employees166
+Other Services (except Public Administration)<20 employees1,586
+Other Services (except Public Administration)20-99 employees100
+Other Services (except Public Administration)100-499 employees37
+Other Services (except Public Administration)<500 employees1,723
+Other Services (except Public Administration)500+ employees115
+Industries not classified<5 employees51
+Industries not classified5-9 employees4
+Industries not classified<20 employees56
+Industries not classified<500 employees56
+Agriculture, Forestry, Fishing and Hunting<5 employees296
+Agriculture, Forestry, Fishing and Hunting5-9 employees145
+Agriculture, Forestry, Fishing and Hunting10-19 employees66
+Agriculture, Forestry, Fishing and Hunting<20 employees507
+Agriculture, Forestry, Fishing and Hunting20-99 employees45
+Agriculture, Forestry, Fishing and Hunting100-499 employees3
+Agriculture, Forestry, Fishing and Hunting<500 employees555
+Agriculture, Forestry, Fishing and Hunting500+ employees4
+Mining, Quarrying, and Oil and Gas Extraction<5 employees13
+Mining, Quarrying, and Oil and Gas Extraction5-9 employees4
+Mining, Quarrying, and Oil and Gas Extraction10-19 employees5
+Mining, Quarrying, and Oil and Gas Extraction<20 employees22
+Mining, Quarrying, and Oil and Gas Extraction20-99 employees8
+Mining, Quarrying, and Oil and Gas Extraction<500 employees31
+Utilities<5 employees37
+Utilities5-9 employees12
+Utilities<20 employees49
+Utilities<500 employees50
+Utilities500+ employees3
+Construction<5 employees10,659
+Construction5-9 employees2,291
+Construction10-19 employees1,367
+Construction<20 employees14,317
+Construction20-99 employees1,108
+Construction100-499 employees155
+Construction<500 employees15,580
+Construction500+ employees51
+Manufacturing<5 employees1,557
+Manufacturing5-9 employees649
+Manufacturing10-19 employees494
+Manufacturing<20 employees2,700
+Manufacturing20-99 employees634
+Manufacturing100-499 employees175
+Manufacturing<500 employees3,509
+Manufacturing500+ employees68
+Wholesale Trade<5 employees3,585
+Wholesale Trade5-9 employees835
+Wholesale Trade10-19 employees568
+Wholesale Trade<20 employees4,988
+Wholesale Trade20-99 employees570
+Wholesale Trade100-499 employees228
+Wholesale Trade<500 employees5,786
+Wholesale Trade500+ employees104
+Retail Trade<5 employees9,442
+Retail Trade5-9 employees2,904
+Retail Trade10-19 employees1,267
+Retail Trade<20 employees13,613
+Retail Trade20-99 employees854
+Retail Trade100-499 employees149
+Retail Trade<500 employees14,616
+Retail Trade500+ employees56
+Transportation and Warehousing<5 employees3,228
+Transportation and Warehousing5-9 employees400
+Transportation and Warehousing10-19 employees262
+Transportation and Warehousing<20 employees3,890
+Transportation and Warehousing20-99 employees400
+Transportation and Warehousing100-499 employees116
+Transportation and Warehousing<500 employees4,406
+Transportation and Warehousing500+ employees63
+Information<5 employees1,292
+Information5-9 employees144
+Information10-19 employees101
+Information<20 employees1,537
+Information20-99 employees84
+Information100-499 employees28
+Information<500 employees1,649
+Information500+ employees13
+Finance and Insurance<5 employees4,067
+Finance and Insurance5-9 employees861
+Finance and Insurance10-19 employees254
+Finance and Insurance<20 employees5,182
+Finance and Insurance20-99 employees118
+Finance and Insurance100-499 employees41
+Finance and Insurance<500 employees5,341
+Finance and Insurance500+ employees37
+Real Estate and Rental and Leasing<5 employees7,306
+Real Estate and Rental and Leasing5-9 employees381
+Real Estate and Rental and Leasing10-19 employees175
+Real Estate and Rental and Leasing<20 employees7,862
+Real Estate and Rental and Leasing20-99 employees134
+Real Estate and Rental and Leasing100-499 employees56
+Real Estate and Rental and Leasing<500 employees8,052
+Real Estate and Rental and Leasing500+ employees31
+Professional, Scientific, and Technical Services<5 employees18,094
+Professional, Scientific, and Technical Services5-9 employees2,271
+Professional, Scientific, and Technical Services10-19 employees1,130
+Professional, Scientific, and Technical Services<20 employees21,495
+Professional, Scientific, and Technical Services20-99 employees764
+Professional, Scientific, and Technical Services100-499 employees176
+Professional, Scientific, and Technical Services<500 employees22,435
+Professional, Scientific, and Technical Services500+ employees94
+Management of Companies and Enterprises<5 employees68
+Management of Companies and Enterprises5-9 employees3
+Management of Companies and Enterprises10-19 employees9
+Management of Companies and Enterprises<20 employees80
+Management of Companies and Enterprises20-99 employees55
+Management of Companies and Enterprises100-499 employees83
+Management of Companies and Enterprises<500 employees218
+Management of Companies and Enterprises500+ employees54
+Administrative and Support and Waste Management and Remediation Services<5 employees5,153
+Administrative and Support and Waste Management and Remediation Services5-9 employees1,032
+Administrative and Support and Waste Management and Remediation Services10-19 employees670
+Administrative and Support and Waste Management and Remediation Services<20 employees6,855
+Administrative and Support and Waste Management and Remediation Services20-99 employees610
+Administrative and Support and Waste Management and Remediation Services100-499 employees214
+Administrative and Support and Waste Management and Remediation Services<500 employees7,679
+Administrative and Support and Waste Management and Remediation Services500+ employees154
+Educational Services<5 employees1,047
+Educational Services5-9 employees196
+Educational Services10-19 employees159
+Educational Services<20 employees1,402
+Educational Services20-99 employees121
+Educational Services100-499 employees9
+Educational Services<500 employees1,532
+Educational Services500+ employees7
+Health Care and Social Assistance<5 employees7,613
+Health Care and Social Assistance5-9 employees2,554
+Health Care and Social Assistance10-19 employees1,762
+Health Care and Social Assistance<20 employees11,929
+Health Care and Social Assistance20-99 employees1,208
+Health Care and Social Assistance100-499 employees152
+Health Care and Social Assistance<500 employees13,289
+Health Care and Social Assistance500+ employees47
+Arts, Entertainment, and Recreation<5 employees1,538
+Arts, Entertainment, and Recreation5-9 employees214
+Arts, Entertainment, and Recreation10-19 employees147
+Arts, Entertainment, and Recreation<20 employees1,899
+Arts, Entertainment, and Recreation20-99 employees121
+Arts, Entertainment, and Recreation100-499 employees9
+Arts, Entertainment, and Recreation<500 employees2,029
+Accommodation and Food Services<5 employees2,964
+Accommodation and Food Services5-9 employees1,890
+Accommodation and Food Services10-19 employees2,008
+Accommodation and Food Services<20 employees6,862
+Accommodation and Food Services20-99 employees2,273
+Accommodation and Food Services100-499 employees243
+Accommodation and Food Services<500 employees9,378
+Accommodation and Food Services500+ employees61
+Other Services (except Public Administration)<5 employees6,393
+Other Services (except Public Administration)5-9 employees1,483
+Other Services (except Public Administration)10-19 employees703
+Other Services (except Public Administration)<20 employees8,579
+Other Services (except Public Administration)20-99 employees334
+Other Services (except Public Administration)100-499 employees43
+Other Services (except Public Administration)<500 employees8,956
+Other Services (except Public Administration)500+ employees20
+Industries not classified<5 employees60
+Industries not classified<20 employees62
+Industries not classified<500 employees62
+Agriculture, Forestry, Fishing and Hunting<5 employees90
+Agriculture, Forestry, Fishing and Hunting5-9 employees21
+Agriculture, Forestry, Fishing and Hunting10-19 employees9
+Agriculture, Forestry, Fishing and Hunting<20 employees120
+Agriculture, Forestry, Fishing and Hunting20-99 employees8
+Agriculture, Forestry, Fishing and Hunting<500 employees130
+Mining, Quarrying, and Oil and Gas Extraction<5 employees10
+Mining, Quarrying, and Oil and Gas Extraction5-9 employees6
+Mining, Quarrying, and Oil and Gas Extraction<20 employees18
+Mining, Quarrying, and Oil and Gas Extraction20-99 employees5
+Mining, Quarrying, and Oil and Gas Extraction<500 employees24
+Mining, Quarrying, and Oil and Gas Extraction500+ employees4
+Utilities<5 employees8
+Utilities5-9 employees6
+Utilities<20 employees16
+Utilities<500 employees18
+Construction<5 employees1,010
+Construction5-9 employees235
+Construction10-19 employees167
+Construction<20 employees1,412
+Construction20-99 employees157
+Construction100-499 employees35
+Construction<500 employees1,604
+Construction500+ employees23
+Manufacturing<5 employees323
+Manufacturing5-9 employees146
+Manufacturing10-19 employees127
+Manufacturing<20 employees596
+Manufacturing20-99 employees187
+Manufacturing100-499 employees79
+Manufacturing<500 employees862
+Manufacturing500+ employees54
+Wholesale Trade<5 employees385
+Wholesale Trade5-9 employees136
+Wholesale Trade10-19 employees99
+Wholesale Trade<20 employees620
+Wholesale Trade20-99 employees135
+Wholesale Trade100-499 employees64
+Wholesale Trade<500 employees819
+Wholesale Trade500+ employees65
+Retail Trade<5 employees1,466
+Retail Trade5-9 employees465
+Retail Trade10-19 employees206
+Retail Trade<20 employees2,137
+Retail Trade20-99 employees206
+Retail Trade100-499 employees56
+Retail Trade<500 employees2,399
+Retail Trade500+ employees59
+Transportation and Warehousing<5 employees568
+Transportation and Warehousing5-9 employees75
+Transportation and Warehousing10-19 employees47
+Transportation and Warehousing<20 employees690
+Transportation and Warehousing20-99 employees77
+Transportation and Warehousing100-499 employees39
+Transportation and Warehousing<500 employees806
+Transportation and Warehousing500+ employees39
+Information<5 employees171
+Information5-9 employees53
+Information10-19 employees31
+Information<20 employees255
+Information20-99 employees47
+Information100-499 employees24
+Information<500 employees326
+Information500+ employees33
+Finance and Insurance<5 employees500
+Finance and Insurance5-9 employees97
+Finance and Insurance10-19 employees62
+Finance and Insurance<20 employees659
+Finance and Insurance20-99 employees47
+Finance and Insurance100-499 employees44
+Finance and Insurance<500 employees750
+Finance and Insurance500+ employees53
+Real Estate and Rental and Leasing<5 employees1,495
+Real Estate and Rental and Leasing5-9 employees225
+Real Estate and Rental and Leasing10-19 employees104
+Real Estate and Rental and Leasing<20 employees1,824
+Real Estate and Rental and Leasing20-99 employees87
+Real Estate and Rental and Leasing100-499 employees78
+Real Estate and Rental and Leasing<500 employees1,989
+Real Estate and Rental and Leasing500+ employees66
+Professional, Scientific, and Technical Services<5 employees1,256
+Professional, Scientific, and Technical Services5-9 employees396
+Professional, Scientific, and Technical Services10-19 employees259
+Professional, Scientific, and Technical Services<20 employees1,911
+Professional, Scientific, and Technical Services20-99 employees265
+Professional, Scientific, and Technical Services100-499 employees122
+Professional, Scientific, and Technical Services<500 employees2,298
+Professional, Scientific, and Technical Services500+ employees119
+Management of Companies and Enterprises<5 employees20
+Management of Companies and Enterprises5-9 employees4
+Management of Companies and Enterprises10-19 employees3
+Management of Companies and Enterprises<20 employees27
+Management of Companies and Enterprises20-99 employees18
+Management of Companies and Enterprises100-499 employees22
+Management of Companies and Enterprises<500 employees67
+Management of Companies and enterprises500+ employees59
+Administrative and Support and Waste Management and Remediation Services<5 employees704
+Administrative and Support and Waste Management and Remediation Services5-9 employees164
+Administrative and Support and Waste Management and Remediation Services10-19 employees103
+Administrative and Support and Waste Management and Remediation Services<20 employees971
+Administrative and Support and Waste Management and Remediation Services20-99 employees113
+Administrative and Support and Waste Management and Remediation Services100-499 employees70
+Administrative and Support and Waste Management and Remediation Services<500 employees1,154
+Administrative and Support and Waste Management and Remediation Services500+ employees84
+Educational Services<5 employees135
+Educational Services5-9 employees51
+Educational Services10-19 employees31
+Educational Services<20 employees217
+Educational Services20-99 employees26
+Educational Services100-499 employees4
+Educational Services<500 employees247
+Educational Services500+ employees5
+Health Care and Social Assistance<5 employees739
+Health Care and Social Assistance5-9 employees329
+Health Care and Social Assistance10-19 employees307
+Health Care and Social Assistance<20 employees1,375
+Health Care and Social Assistance20-99 employees413
+Health Care and Social Assistance100-499 employees101
+Health Care and Social Assistance<500 employees1,889
+Health Care and Social Assistance500+ employees98
+Arts, Entertainment, and Recreation<5 employees309
+Arts, Entertainment, and Recreation5-9 employees108
+Arts, Entertainment, and Recreation10-19 employees109
+Arts, Entertainment, and Recreation<20 employees526
+Arts, Entertainment, and Recreation20-99 employees112
+Arts, Entertainment, and Recreation100-499 employees13
+Arts, Entertainment, and Recreation<500 employees651
+Arts, Entertainment, and Recreation500+ employees14
+Accommodation and Food Services<5 employees1,312
+Accommodation and Food Services5-9 employees627
+Accommodation and Food Services10-19 employees923
+Accommodation and Food Services<20 employees2,862
+Accommodation and Food Services20-99 employees1,150
+Accommodation and Food Services100-499 employees112
+Accommodation and Food Services<500 employees4,124
+Accommodation and Food Services500+ employees110
+Other Services (except Public Administration)<5 employees817
+Other Services (except Public Administration)5-9 employees222
+Other Services (except Public Administration)10-19 employees155
+Other Services (except Public Administration)<20 employees1,194
+Other Services (except Public Administration)20-99 employees78
+Other Services (except Public Administration)100-499 employees24
+Other Services (except Public Administration)<500 employees1,296
+Other Services (except Public Administration)500+ employees18
+Industries not classified<5 employees49
+Industries not classified5-9 employees4
+Industries not classified<20 employees53
+Industries not classified<500 employees53
+Agriculture, Forestry, Fishing and Hunting<5 employees78
+Agriculture, Forestry, Fishing and Hunting5-9 employees23
+Agriculture, Forestry, Fishing and Hunting10-19 employees7
+Agriculture, Forestry, Fishing and Hunting<20 employees108
+Agriculture, Forestry, Fishing and Hunting20-99 employees6
+Agriculture, Forestry, Fishing and Hunting<500 employees114
+Mining, Quarrying, and Oil and Gas Extraction<5 employees5
+Mining, Quarrying, and Oil and Gas Extraction<20 employees8
+Mining, Quarrying, and Oil and Gas Extraction<500 employees8
+Utilities<20 employees4
+Utilities<500 employees6
+Construction<5 employees1,293
+Construction5-9 employees190
+Construction10-19 employees52
+Construction<20 employees1,535
+Construction20-99 employees42
+Construction100-499 employees10
+Construction<500 employees1,587
+Construction500+ employees6
+Manufacturing<5 employees293
+Manufacturing5-9 employees96
+Manufacturing10-19 employees36
+Manufacturing<20 employees425
+Manufacturing20-99 employees41
+Manufacturing100-499 employees13
+Manufacturing<500 employees479
+Manufacturing500+ employees17
+Wholesale Trade<5 employees265
+Wholesale Trade5-9 employees42
+Wholesale Trade10-19 employees22
+Wholesale Trade<20 employees329
+Wholesale Trade20-99 employees19
+Wholesale Trade100-499 employees9
+Wholesale Trade<500 employees357
+Wholesale Trade500+ employees21
+Retail Trade<5 employees1,791
+Retail Trade5-9 employees342
+Retail Trade10-19 employees118
+Retail Trade<20 employees2,251
+Retail Trade20-99 employees30
+Retail Trade100-499 employees7
+Retail Trade<500 employees2,288
+Retail Trade500+ employees12
+Transportation and Warehousing<5 employees1,051
+Transportation and Warehousing5-9 employees125
+Transportation and Warehousing10-19 employees32
+Transportation and Warehousing<20 employees1,208
+Transportation and Warehousing20-99 employees29
+Transportation and Warehousing100-499 employees13
+Transportation and Warehousing<500 employees1,250
+Transportation and Warehousing500+ employees17
+Information<5 employees112
+Information5-9 employees24
+Information10-19 employees8
+Information<20 employees144
+Information20-99 employees10
+Information100-499 employees7
+Information<500 employees161
+Information500+ employees8
+Finance and Insurance<5 employees772
+Finance and Insurance5-9 employees110
+Finance and Insurance10-19 employees11
+Finance and Insurance<20 employees893
+Finance and Insurance20-99 employees14
+Finance and Insurance100-499 employees6
+Finance and Insurance<500 employees913
+Finance and Insurance500+ employees11
+Real Estate and Rental and Leasing<5 employees581
+Real Estate and Rental and Leasing5-9 employees53
+Real Estate and Rental and Leasing10-19 employees28
+Real Estate and Rental and Leasing<20 employees662
+Real Estate and Rental and Leasing20-99 employees19
+Real Estate and Rental and Leasing100-499 employees8
+Real Estate and Rental and Leasing<500 employees689
+Real Estate and Rental and Leasing500+ employees8
+Professional, Scientific, and Technical Services<5 employees1,667
+Professional, Scientific, and Technical Services5-9 employees157
+Professional, Scientific, and Technical Services10-19 employees50
+Professional, Scientific, and Technical Services<20 employees1,874
+Professional, Scientific, and Technical Services20-99 employees32
+Professional, Scientific, and Technical Services100-499 employees22
+Professional, Scientific, and Technical Services<500 employees1,928
+Professional, Scientific, and Technical Services500+ employees24
+Management of Companies and Enterprises<5 employees9
+Management of Companies and Enterprises<20 employees9
+Management of Companies and Enterprises<500 employees10
+Management of Companies and Enterprises500+ employees9
+Administrative and Support and Waste Management and Remediation Services<5 employees1,117
+Administrative and Support and Waste Management and Remediation Services5-9 employees166
+Administrative and Support and Waste Management and Remediation Services10-19 employees73
+Administrative and Support and Waste Management and Remediation Services<20 employees1,356
+Administrative and Support and Waste Management and Remediation Services20-99 employees45
+Administrative and Support and Waste Management and Remediation Services100-499 employees12
+Administrative and Support and Waste Management and Remediation Services<500 employees1,413
+Administrative and Support and Waste Management and Remediation Services500+ employees13
+Educational Services<5 employees173
+Educational Services5-9 employees52
+Educational Services10-19 employees30
+Educational Services<20 employees255
+Educational Services20-99 employees20
+Educational Services100-499 employees4
+Educational Services<500 employees279
+Educational Services500+ employees3
+Health Care and Social Assistance<5 employees1,158
+Health Care and Social Assistance5-9 employees395
+Health Care and Social Assistance10-19 employees151
+Health Care and Social Assistance<20 employees1,704
+Health Care and Social Assistance20-99 employees146
+Health Care and Social Assistance100-499 employees19
+Health Care and Social Assistance<500 employees1,869
+Health Care and Social Assistance500+ employees24
+Arts, Entertainment, and Recreation<5 employees226
+Arts, Entertainment, and Recreation5-9 employees48
+Arts, Entertainment, and Recreation10-19 employees45
+Arts, Entertainment, and Recreation<20 employees319
+Arts, Entertainment, and Recreation20-99 employees25
+Arts, Entertainment, and Recreation100-499 employees5
+Arts, Entertainment, and Recreation<500 employees349
+Arts, Entertainment, and Recreation500+ employees4
+Accommodation and Food Services<5 employees1,022
+Accommodation and Food Services5-9 employees322
+Accommodation and Food Services10-19 employees253
+Accommodation and Food Services<20 employees1,597
+Accommodation and Food Services20-99 employees202
+Accommodation and Food Services100-499 employees14
+Accommodation and Food Services<500 employees1,813
+Accommodation and Food Services500+ employees15
+Other Services (except Public Administration)<5 employees1,398
+Other Services (except Public Administration)5-9 employees215
+Other Services (except Public Administration)10-19 employees80
+Other Services (except Public Administration)<20 employees1,693
+Other Services (except Public Administration)20-99 employees32
+Other Services (except Public Administration)100-499 employees5
+Other Services (except Public Administration)<500 employees1,730
+Other Services (except Public Administration)500+ employees5
+Industries not classified<5 employees146
+Industries not classified5-9 employees8
+Industries not classified<20 employees154
+Industries not classified<500 employees155
+Agriculture, Forestry, Fishing and Hunting<20 employees4
+Agriculture, Forestry, Fishing and Hunting<500 employees4
+Utilities<5 employees4
+Utilities<20 employees5
+Utilities20-99 employees21
+Utilities100-499 employees22
+Utilities<500 employees48
+Construction<5 employees18
+Construction5-9 employees6
+Construction<20 employees26
+Construction<500 employees26
+Manufacturing<5 employees6
+Manufacturing5-9 employees3
+Manufacturing<20 employees10
+Manufacturing20-99 employees3
+Manufacturing<500 employees13
+Wholesale Trade<5 employees3
+Wholesale Trade<20 employees5
+Wholesale Trade100-499 employees3
+Wholesale Trade<500 employees9
+Wholesale Trade500+ employees3
+Retail Trade<5 employees45
+Retail Trade5-9 employees14
+Retail Trade10-19 employees9
+Retail Trade<20 employees68
+Retail Trade20-99 employees13
+Retail Trade100-499 employees4
+Retail Trade<500 employees85
+Retail Trade500+ employees10
+Transportation and Warehousing<5 employees8
+Transportation and Warehousing<20 employees8
+Transportation and Warehousing<500 employees11
+Transportation and Warehousing500+ employees4
+Information<5 employees36
+Information5-9 employees7
+Information10-19 employees13
+Information<20 employees56
+Information20-99 employees13
+Information100-499 employees6
+Information<500 employees75
+Finance and Insurance<5 employees32
+Finance and Insurance5-9 employees10
+Finance and Insurance10-19 employees14
+Finance and Insurance<20 employees56
+Finance and Insurance20-99 employees26
+Finance and Insurance100-499 employees23
+Finance and Insurance<500 employees105
+Finance and Insurance500+ employees14
+Real Estate and Rental and Leasing<5 employees25
+Real Estate and Rental and Leasing5-9 employees14
+Real Estate and Rental and Leasing10-19 employees8
+Real Estate and Rental and Leasing<20 employees47
+Real Estate and Rental and Leasing20-99 employees5
+Real Estate and Rental and Leasing100-499 employees4
+Real Estate and Rental and Leasing<500 employees56
+Real Estate and Rental and Leasing500+ employees10
+Professional, Scientific, and Technical Services<5 employees78
+Professional, Scientific, and Technical Services5-9 employees22
+Professional, Scientific, and Technical Services10-19 employees16
+Professional, Scientific, and Technical Services<20 employees116
+Professional, Scientific, and Technical Services20-99 employees18
+Professional, Scientific, and Technical Services100-499 employees17
+Professional, Scientific, and Technical Services<500 employees151
+Professional, Scientific, and Technical Services500+ employees14
+Management of Companies and Enterprises20-99 employees6
+Management of Companies and Enterprises100-499 employees18
+Management of Companies and Enterprises<500 employees25
+Management of Companies and Enterprises500+ employees23
+Administrative and Support and Waste Management and Remediation Services<5 employees56
+Administrative and Support and Waste Management and Remediation Services5-9 employees18
+Administrative and Support and Waste Management and Remediation Services10-19 employees9
+Administrative and Support and Waste Management and Remediation Services<20 employees83
+Administrative and Support and Waste Management and Remediation Services20-99 employees10
+Administrative and Support and Waste Management and Remediation Services100-499 employees8
+Administrative and Support and Waste Management and Remediation Services<500 employees101
+Administrative and Support and Waste Management and Remediation Services500+ employees11
+Educational Services<5 employees247
+Educational Services5-9 employees83
+Educational Services10-19 employees84
+Educational Services<20 employees414
+Educational Services20-99 employees245
+Educational Services100-499 employees102
+Educational Services<500 employees761
+Educational Services500+ employees35
+Health Care and Social Assistance<5 employees742
+Health Care and Social Assistance5-9 employees331
+Health Care and Social Assistance10-19 employees282
+Health Care and Social Assistance<20 employees1,355
+Health Care and Social Assistance20-99 employees362
+Health Care and Social Assistance100-499 employees113
+Health Care and Social Assistance<500 employees1,830
+Health Care and Social Assistance500+ employees85
+Arts, Entertainment, and Recreation<5 employees243
+Arts, Entertainment, and Recreation5-9 employees64
+Arts, Entertainment, and Recreation10-19 employees45
+Arts, Entertainment, and Recreation<20 employees352
+Arts, Entertainment, and Recreation20-99 employees64
+Arts, Entertainment, and Recreation100-499 employees33
+Arts, Entertainment, and Recreation<500 employees449
+Arts, Entertainment, and Recreation500+ employees7
+Accommodation and Food Services<5 employees36
+Accommodation and Food Services5-9 employees9
+Accommodation and Food Services10-19 employees7
+Accommodation and Food Services<20 employees52
+Accommodation and Food Services20-99 employees11
+Accommodation and Food Services100-499 employees5
+Accommodation and Food Services<500 employees68
+Accommodation and Food Services500+ employees4
+Other Services (except Public Administration)<5 employees5,312
+Other Services (except Public Administration)5-9 employees1,562
+Other Services (except Public Administration)10-19 employees731
+Other Services (except Public Administration)<20 employees7,605
+Other Services (except Public Administration)20-99 employees688
+Other Services (except Public Administration)100-499 employees106
+Other Services (except Public Administration)<500 employees8,399
+Other Services (except Public Administration)500+ employees36
+Industries not classified<5 employees40
+Industries not classified<20 employees41
+Industries not classified<500 employees41
+Health Care and Social Assistance100-499 employees20
+Health Care and Social Assistance<500 employees21
+Health Care and Social Assistance500+ employees11
+Construction<5 employees9
+Construction<20 employees10
+Construction<500 employees11
+Manufacturing500+ employees5
+Wholesale Trade<5 employees4
+Wholesale Trade<20 employees7
+Wholesale Trade20-99 employees5
+Wholesale Trade100-499 employees3
+Wholesale Trade<500 employees15
+Wholesale Trade500+ employees4
+Retail Trade<5 employees10
+Retail Trade5-9 employees5
+Retail Trade<20 employees17
+Retail Trade20-99 employees5
+Retail Trade<500 employees23
+Retail Trade500+ employees9
+Transportation and Warehousing<500 employees3
+Transportation and Warehousing500+ employees4
+Finance and Insurance20-99 employees3
+Finance and Insurance<500 employees6
+Finance and Insurance500+ employees8
+Real Estate and Rental and Leasing<5 employees9
+Real Estate and Rental and Leasing<20 employees12
+Real Estate and Rental and Leasing100-499 employees4
+Real Estate and Rental and Leasing<500 employees16
+Real Estate and Rental and Leasing500+ employees12
+Professional, Scientific, and Technical Services<500 employees4
+Management of Companies and Enterprises500+ employees3
+Administrative and Support and Waste Management and Remediation Services<5 employees6
+Administrative and Support and Waste Management and Remediation Services<20 employees6
+Administrative and Support and Waste Management and Remediation Services20-99 employees3
+Administrative and Support and Waste Management and Remediation Services<500 employees10
+Administrative and Support and Waste Management and Remediation Services500+ employees8
+Health Care and Social Assistance<5 employees3
+Health Care and Social Assistance<20 employees3
+Health Care and Social Assistance<500 employees3
+Health Care and Social Assistance500+ employees18
+Arts, Entertainment, and Recreation500+ employees3
+Accommodation and Food Services<5 employees3
+Accommodation and Food Services<20 employees5
+Accommodation and Food Services100-499 employees4
+Accommodation and Food Services<500 employees10
+Accommodation and Food Services500+ employees11
+Other Services (except Public Administration)<5 employees7
+Other Services (except Public Administration)5-9 employees7
+Other Services (except Public Administration)10-19 employees3
+Other Services (except Public Administration)<20 employees17
+Other Services (except Public Administration)<500 employees19
+        `;
+
+        // --- 1. DATA PARSING AND AGGREGATION ---
+        function parseData(rawData) {
+            const lines = rawData.trim().split('\n').slice(1); // Remove header
+            const aggregatedData = {};
+            const sizeCategories = ['<5 employees', '5-9 employees', '10-19 employees', '20-99 employees', '100-499 employees', '500+ employees'];
+
+            lines.forEach(line => {
+                let industry, size, firms;
+
+                // Find which size category is in the line to parse it correctly
+                for (const s of [...sizeCategories, '<20 employees', '<500 employees']) {
+                    const index = line.indexOf(s);
+                    if (index > -1) {
+                        industry = line.substring(0, index).trim();
+                        size = s;
+                        const firmsStr = line.substring(index + s.length).replace(/,/g, '');
+                        firms = parseInt(firmsStr, 10);
+                        break;
+                    }
+                }
+                
+                // Only process valid, granular data to avoid double counting
+                if (industry && size && !isNaN(firms) && sizeCategories.includes(size)) {
+                    if (!aggregatedData[industry]) {
+                        aggregatedData[industry] = Object.fromEntries(sizeCategories.map(k => [k, 0]));
+                    }
+                    aggregatedData[industry][size] += firms;
+                }
+            });
+            return aggregatedData;
+        }
+
+        const aggregatedData = parseData(rawData);
+        const industries = Object.keys(aggregatedData).sort();
+        const sizeLabels = ['<5 employees', '5-9 employees', '10-19 employees', '20-99 employees', '100-499 employees', '500+ employees'];
+        const sizeColors = [
+            'rgba(67, 56, 202, 0.8)', 'rgba(79, 70, 229, 0.8)', 'rgba(99, 102, 241, 0.8)',
+            'rgba(129, 140, 248, 0.8)', 'rgba(165, 180, 252, 0.8)', 'rgba(199, 210, 254, 0.8)'
+        ];
+
+        // --- 2. SETUP CHARTS ---
+        let industryTotalChart, sizeDistributionChart;
+
+        // Chart 1: Total Firms by Industry (Horizontal Bar Chart)
+        function createIndustryTotalChart() {
+            const ctx = document.getElementById('industryTotalChart').getContext('2d');
+            const sortedIndustries = industries.map(ind => {
+                const total = Object.values(aggregatedData[ind]).reduce((a, b) => a + b, 0);
+                return { name: ind, total: total };
+            }).sort((a, b) => a.total - b.total);
+            
+            industryTotalChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedIndustries.map(i => i.name),
+                    datasets: [{
+                        label: 'Total Firms',
+                        data: sortedIndustries.map(i => i.total),
+                        backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Makes the bar chart horizontal
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { title: { display: true, text: 'Total Number of Firms' } } }
+                }
+            });
+        }
+
+        // Chart 2: Firm Size Distribution (Doughnut Chart)
+        function createSizeDistributionChart() {
+            const ctx = document.getElementById('sizeDistributionChart').getContext('2d');
+            sizeDistributionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: sizeLabels,
+                    datasets: [{
+                        data: [], // Initially empty
+                        backgroundColor: sizeColors,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'right' } }
+                }
+            });
+        }
+
+        // --- 3. DYNAMIC UPDATES & ANALYSIS ---
+        const selector = document.getElementById('industrySelector');
+        const analysisContainer = document.getElementById('analysis');
+
+        function updateDashboard(selectedIndustry) {
+            let data, title;
+
+            if (selectedIndustry === 'Overall') {
+                title = 'Overall Distribution';
+                data = sizeLabels.map(size => {
+                    return industries.reduce((sum, ind) => sum + aggregatedData[ind][size], 0);
+                });
+            } else {
+                title = `${selectedIndustry}`;
+                data = sizeLabels.map(size => aggregatedData[selectedIndustry][size]);
+            }
+
+            // Update doughnut chart
+            sizeDistributionChart.data.datasets[0].data = data;
+            sizeDistributionChart.options.plugins.title = { display: true, text: title, font: { size: 18 } };
+            sizeDistributionChart.update();
+
+            // Update analysis text
+            const totalFirms = data.reduce((a, b) => a + b, 0);
+            const maxFirms = Math.max(...data);
+            const dominantSize = sizeLabels[data.indexOf(maxFirms)];
+            
+            analysisContainer.innerHTML = `
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-semibold text-gray-600">Selected Sector</h3>
+                    <p class="text-2xl font-bold text-indigo-600">${title}</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-semibold text-gray-600">Total Firms</h3>
+                    <p class="text-2xl font-bold text-indigo-600">${totalFirms.toLocaleString()}</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-semibold text-gray-600">Dominant Firm Size</h3>
+                    <p class="text-2xl font-bold text-indigo-600">${dominantSize}</p>
+                </div>
+            `;
+        }
+        
+        // --- 4. INITIALIZATION ---
+        window.onload = () => {
+            // Populate selector
+            selector.innerHTML = `<option>Overall</option>` + industries.map(ind => `<option>${ind}</option>`).join('');
+            
+            // Create charts
+            createIndustryTotalChart();
+            createSizeDistributionChart();
+            
+            // Initial dashboard state
+            updateDashboard('Overall');
+            
+            // Add event listener
+            selector.addEventListener('change', (e) => updateDashboard(e.target.value));
+        };
+    </script>
+</body>
+</html>
 
