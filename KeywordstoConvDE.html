@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPC Keyword Conversion Report - Germany</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* A lighter gray for a softer feel */
+        }
+        .gradient-header {
+            background: linear-gradient(90deg, #111827 0%, #4b5563 100%);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto max-w-5xl my-12 px-4">
+        
+        <header class="gradient-header text-white p-8 rounded-xl shadow-2xl mb-10">
+            <h1 class="text-4xl font-bold tracking-tight">Keyword Conversion Insights 🇩🇪</h1>
+            <p class="text-lg mt-2 opacity-90">Analysis of High-Converting PPC Keywords for the German Market</p>
+        </header>
+        
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <div class="relative mb-8">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                     <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <input type="text" id="searchInput" placeholder="Search for a specific keyword..." class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 ease-in-out" />
+            </div>
+            
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table id="keywordsTable" class="w-full text-left">
+                    <thead class="bg-gray-100 border-b-2 border-gray-200">
+                        <tr>
+                            <th class="p-4 text-sm font-semibold text-gray-600 tracking-wider">Keyword (TrackTerm)</th>
+                            <th class="p-4 text-sm font-semibold text-gray-600 tracking-wider text-center">Total Conversions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- Data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Consolidated keyword conversion data from the German campaign images
+            const keywordData = [
+                { keyword: "gps flottenüberwachung", conversions: 30 },
+                { keyword: "gps für transporter", conversions: 19 },
+                { keyword: "fahrzeugtracking", conversions: 13 },
+                { keyword: "gps überwachung kfz", conversions: 12 },
+                { keyword: "gps-fahrzeugortung", conversions: 10 },
+                { keyword: "fuhrparkmanagement gps", conversions: 8 },
+                { keyword: "gps-fahrzeugortungssystem", conversions: 8 },
+                { keyword: "fahrzeugortung", conversions: 7 },
+                { keyword: "transporter-ortung", conversions: 6 },
+                { keyword: "fahrzeugortung gps", conversions: 5 },
+                { keyword: "fahrzeug verfolgungssystem", conversions: 5 },
+                { keyword: "transporter-tracker", conversions: 5 },
+                { keyword: "fuhrpark gps überwachung", conversions: 4 },
+                { keyword: "gps ortung", conversions: 4 },
+                { keyword: "gps ortung fahrzeug", conversions: 4 },
+                { keyword: "gps sender für fahrzeuge", conversions: 4 },
+                { keyword: "gps tracker fahrzeug", conversions: 4 },
+                { keyword: "gps tracker fahrzeugflotte", conversions: 4 },
+                { keyword: "gps tracker für firmenfahrzeuge", conversions: 4 },
+                { keyword: "gps-tracking für flottenfahrzeuge", conversions: 4 },
+                { keyword: "gps tracker firmenwagen", conversions: 3 },
+                { keyword: "fuhrparküberwachung", conversions: 2 },
+                { keyword: "fahrzeug tracking", conversions: 2 },
+                { keyword: "fahrzeug-tracking-systeme", conversions: 2 },
+                { keyword: "flottenüberwachung gps", conversions: 2 },
+                { keyword: "fuhrpark gps ortung", conversions: 2 },
+                { keyword: "gps für fahrzeuge", conversions: 2 },
+                { keyword: "gps ortung fahrzeuge", conversions: 2 },
+                { keyword: "gps ortung fahrzeugflotte", conversions: 2 },
+                { keyword: "gps-ortung für flotten", conversions: 2 },
+                { keyword: "gps tracker", conversions: 2 },
+                { keyword: "gps tracker ortung", conversions: 2 },
+                { keyword: "radius", conversions: 2 },
+                { keyword: "radius gps", conversions: 2 },
+                { keyword: "ortung lkw", conversions: 2 },
+                { keyword: "fuhrpark management", conversions: 1 },
+                { keyword: "fuhrparkmanagement software", conversions: 1 },
+                { keyword: "gps-fahrzeugortungsgerät", conversions: 1 },
+                { keyword: "gps fahrzeugtracker", conversions: 1 },
+                { keyword: "gps fahrzeug tracking", conversions: 1 },
+                { keyword: "gps firmenfahrzeuge", conversions: 1 },
+                { keyword: "gps firmenwagen", conversions: 1 },
+                { keyword: "fahrzeugortung für busse", conversions: 1 },
+                { keyword: "fahrzeug überwachung", conversions: 1 },
+                { keyword: "gps kfz ortung", conversions: 1 },
+                { keyword: "gps ortung baumaschinen", conversions: 1 },
+                { keyword: "gps tracker firmenauto", conversions: 1 },
+                { keyword: "gps tracker gps", conversions: 1 },
+                { keyword: "gps tracking firmenwagen", conversions: 1 },
+                { keyword: "gps tracking lkw", conversions: 1 },
+                { keyword: "gps überwachung für kfz", conversions: 1 },
+                { keyword: "lkw tracking", conversions: 1 },
+                { keyword: "lkw tracking app", conversions: 1 },
+                { keyword: "lkw überwachung", conversions: 1 },
+                { keyword: "lkw verfolgung", conversions: 1 },
+                { keyword: "ortungsgeräte für fahrzeuge", conversions: 1 },
+                { keyword: "radius tankkarte", conversions: 1 },
+                { keyword: "tankkarten service", conversions: 1 },
+                { keyword: "routex", conversions: 1 }
+            ];
+
+            const tableBody = document.querySelector('#keywordsTable tbody');
+            const searchInput = document.getElementById('searchInput');
+
+            const getBadgeColor = (conversions) => {
+                if (conversions >= 10) return 'bg-green-100 text-green-800';
+                if (conversions >= 5) return 'bg-blue-100 text-blue-800';
+                if (conversions > 1) return 'bg-yellow-100 text-yellow-800';
+                return 'bg-gray-100 text-gray-800';
+            };
+
+            const populateTable = (data) => {
+                tableBody.innerHTML = ''; 
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="2" class="text-center p-8 text-gray-500">No matching keywords found.</td></tr>`;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50 transition duration-150';
+                    
+                    const keywordCell = document.createElement('td');
+                    keywordCell.className = 'p-4 font-medium text-gray-900';
+                    keywordCell.textContent = item.keyword;
+                    
+                    const conversionsCell = document.createElement('td');
+                    conversionsCell.className = 'p-4 text-center';
+                    const badgeColor = getBadgeColor(item.conversions);
+                    conversionsCell.innerHTML = `<span class="inline-block ${badgeColor} text-sm font-semibold px-4 py-1.5 rounded-full">${item.conversions}</span>`;
+
+                    row.appendChild(keywordCell);
+                    row.appendChild(conversionsCell);
+                    tableBody.appendChild(row);
+                });
+            };
+
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const filteredData = keywordData.filter(item => 
+                    item.keyword.toLowerCase().includes(searchTerm)
+                );
+                populateTable(filteredData);
+            });
+
+            const sortedData = keywordData.sort((a, b) => b.conversions - a.conversions);
+            populateTable(sortedData);
+        });
+    </script>
+
+</body>
+</html>
+
