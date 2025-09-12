@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPC Winning Keywords Report (Spain)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto max-w-4xl my-10 p-8 bg-white rounded-xl shadow-lg">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">PPC Campaign Performance 🇪🇸</h1>
+            <p class="text-gray-600 mt-2">Winning Keywords Report for Spain</p>
+        </header>
+        
+        <div class="mb-6">
+            <input type="text" id="searchInput" placeholder="Filter keywords..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 ease-in-out" />
+        </div>
+        
+        <div class="overflow-x-auto rounded-lg border border-gray-200">
+            <table id="keywordsTable" class="w-full text-left">
+                <thead class="bg-gray-100 border-b-2 border-gray-200">
+                    <tr>
+                        <th class="p-4 text-sm font-semibold text-gray-600 tracking-wider">Keyword (TrackTerm)</th>
+                        <th class="p-4 text-sm font-semibold text-gray-600 tracking-wider text-center">Total Wins</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Data extracted and consolidated from the provided images
+            const keywordData = [
+                { keyword: "gps para vehiculos de empresa", wins: 12 },
+                { keyword: "seguimiento de flotas por gps", wins: 8 },
+                { keyword: "rastreador de vehiculos", wins: 8 },
+                { keyword: "localizador furgoneta", wins: 8 },
+                { keyword: "gps flota vehiculos", wins: 6 },
+                { keyword: "localizador vehiculos empresa", wins: 6 },
+                { keyword: "gps para furgonetas", wins: 5 },
+                { keyword: "localizador gps furgoneta", wins: 5 },
+                { keyword: "localizador para furgonetas", wins: 5 },
+                { keyword: "rastreador furgoneta", wins: 4 },
+                { keyword: "localizador gps para furgoneta", wins: 4 },
+                { keyword: "gestion de flotas gps", wins: 4 },
+                { keyword: "sistemas de localizacion de vehiculos", wins: 4 },
+                { keyword: "gps flota", wins: 3 },
+                { keyword: "gps rastreador", wins: 3 },
+                { keyword: "seguimiento gps de flotas", wins: 3 },
+                { keyword: "sistema de control de flotas", wins: 3 },
+                { keyword: "camaras de seguridad para vehiculos", wins: 3 },
+                { keyword: "camaras para camiones de carga", wins: 3 },
+                { keyword: "localizador de vehiculo", wins: 3 },
+                { keyword: "gps localizadores", wins: 2 },
+                { keyword: "gps obd", wins: 2 },
+                { keyword: "gps para flotas", wins: 2 },
+                { keyword: "seguimiento de vehiculos por gps", wins: 2 },
+                { keyword: "sistema de seguimiento de gestion de flotas", wins: 2 },
+                { keyword: "localizador gps flotas", wins: 2 },
+                { keyword: "radius", wins: 2 },
+                { keyword: "camara vehiculo", wins: 2 },
+                { keyword: "seguimiento de vehiculos", wins: 1 },
+                { keyword: "rastreador de vehiculos de flota", wins: 1 },
+                { keyword: "rastreador localizador gps", wins: 1 },
+                { keyword: "seguimiento de flotas de vehiculos", wins: 1 },
+                { keyword: "gps de camiones", wins: 1 },
+                { keyword: "gps furgoneta", wins: 1 },
+                { keyword: "gps furgonetas", wins: 1 },
+                { keyword: "gps para furgonetas de empresa", wins: 1 },
+                { keyword: "seguimiento de vehiculos de empresa", wins: 1 },
+                { keyword: "sistema de localizacion gps para vehiculos", wins: 1 },
+                { keyword: "sistema de seguimiento de flotas", wins: 1 },
+                { keyword: "localizador gps para flotas", wins: 1 },
+                { keyword: "localizador gps vehiculos", wins: 1 },
+                { keyword: "localizador por gps", wins: 1 },
+                { keyword: "localizador vehiculos", wins: 1 },
+                { keyword: "camara para vehiculo interna", wins: 1 },
+                { keyword: "camaras para vehiculos con gps", wins: 1 },
+                { keyword: "gestion de flotas", wins: 1 },
+                { keyword: "localizacion vehiculos", wins: 1 },
+                { keyword: "localizador de flota", wins: 1 }
+            ];
+
+            const tableBody = document.querySelector('#keywordsTable tbody');
+            const searchInput = document.getElementById('searchInput');
+
+            // Function to render the table rows based on provided data
+            const populateTable = (data) => {
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="2" class="text-center p-6 text-gray-500">No keywords found.</td></tr>`;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50 transition duration-150';
+                    
+                    const keywordCell = document.createElement('td');
+                    keywordCell.className = 'p-4 font-medium';
+                    keywordCell.textContent = item.keyword;
+                    
+                    const winsCell = document.createElement('td');
+                    winsCell.className = 'p-4 text-center';
+                    winsCell.innerHTML = `<span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">${item.wins}</span>`;
+
+                    row.appendChild(keywordCell);
+                    row.appendChild(winsCell);
+                    tableBody.appendChild(row);
+                });
+            };
+
+            // Event listener for the search input field
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const filteredData = keywordData.filter(item => 
+                    item.keyword.toLowerCase().includes(searchTerm)
+                );
+                populateTable(filteredData);
+            });
+
+            // Initially sort data by wins and populate the table
+            const sortedData = keywordData.sort((a, b) => b.wins - a.wins);
+            populateTable(sortedData);
+        });
+    </script>
+
+</body>
+</html>

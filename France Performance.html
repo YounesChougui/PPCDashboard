@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>France: SEM Performance & Budget Proposal</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons for icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom font and base styling */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">France: SEM Performance & Budget Proposal</h1>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">A data-driven case for increasing our investment in the French market.</p>
+        </header>
+
+        <main>
+            <!-- KPI Section -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Month-to-Date Performance Summary</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- KPI Card: Business Leads -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Business Leads</p>
+                            <i data-lucide="briefcase" class="w-6 h-6 text-blue-500"></i>
+                        </div>
+                        <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">63</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-4">Leads identified as businesses.</p>
+                    </div>
+                    <!-- KPI Card: Lead Quality -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Lead Quality</p>
+                            <i data-lucide="target" class="w-6 h-6 text-green-500"></i>
+                        </div>
+                        <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">78.8%</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-4">+10% improvement compared to last month.</p>
+                    </div>
+                    <!-- KPI Card: Cost Per Business Lead -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Cost Per Business Lead (All)</p>
+                            <i data-lucide="dollar-sign" class="w-6 h-6 text-yellow-500"></i>
+                        </div>
+                        <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">€182</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 mt-4">Overall efficiency for acquiring a business lead.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Argument Section -->
+            <section class="mb-8 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
+                    <i data-lucide="check-circle" class="w-7 h-7 mr-3 text-green-500"></i>
+                    The Case for Increased Investment
+                </h2>
+                <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                    <p>Our campaigns in France are not just generating leads; they are attracting high-value prospects. The data shows a clear positive trend in lead quality and a strong concentration of leads from businesses with significant operational fleets. This indicates a strong product-market fit and a receptive audience.</p>
+                    <p class="font-semibold">However, our current budget is a limiting factor. To maintain top ad positions for competitive, high-intent keywords and scale our success, an increased budget is critical. This is not just about spending more; it's a strategic investment to:</p>
+                    <ul class="list-none space-y-2 pl-2">
+                        <li class="flex items-start"><i data-lucide="arrow-right" class="w-5 h-5 mr-2 mt-1 text-blue-500 flex-shrink-0"></i><span><span class="font-bold">Dominate High-Value Keywords:</span> Secure top rankings to capture a larger share of the most qualified search traffic.</span></li>
+                        <li class="flex items-start"><i data-lucide="arrow-right" class="w-5 h-5 mr-2 mt-1 text-blue-500 flex-shrink-0"></i><span><span class="font-bold">Scale Lead Volume:</span> Reach a wider audience of businesses that match our ideal customer profile.</span></li>
+                        <li class="flex items-start"><i data-lucide="arrow-right" class="w-5 h-5 mr-2 mt-1 text-blue-500 flex-shrink-0"></i><span><span class="font-bold">Accelerate ROI:</span> Capitalize on the proven efficiency of our campaigns to drive substantial growth in the French market.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Detailed Analysis</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Lead Quality Chart -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h3 class="font-semibold text-lg mb-1 text-gray-900 dark:text-white">Lead Quality: Distribution by Fleet Size</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Analysis of sampled leads shows we are attracting valuable customers.</p>
+                        <div class="w-full h-72 relative">
+                            <canvas id="leadQualityChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+                            <p class="font-bold text-green-700 dark:text-green-300 text-lg" id="mediumFleetPercentage"></p>
+                            <p class="text-sm text-green-600 dark:text-green-400">The 11-50 vehicle segment represents high-value prospects.</p>
+                        </div>
+                    </div>
+
+                    <!-- Lead Volume Chart -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h3 class="font-semibold text-lg mb-1 text-gray-900 dark:text-white">Lead Volume: All vs. CPC Channels</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">CPC is the primary driver of our lead generation efforts.</p>
+                        <div class="w-full h-72 relative">
+                            <canvas id="leadVolumeChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <p class="font-semibold text-blue-700 dark:text-blue-300">Observation:</p>
+                            <p class="text-sm text-blue-600 dark:text-blue-400">The vast majority of our leads (63/63 business leads) come directly from our paid search efforts, demonstrating the channel's critical importance.</p>
+                        </div>
+                    </div>
+
+                    <!-- Cost Analysis Chart -->
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 lg:col-span-2">
+                        <h3 class="font-semibold text-lg mb-1 text-gray-900 dark:text-white">Cost Efficiency: CPL & CPBL Analysis</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Comparing acquisition costs across channels.</p>
+                        <div class="w-full h-80 relative">
+                            <canvas id="costAnalysisChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                            <p class="font-semibold text-yellow-700 dark:text-yellow-300">Insight:</p>
+                            <p class="text-sm text-yellow-600 dark:text-yellow-400">The Cost Per Business Lead (CPBL) from CPC is slightly higher (€200 vs €182 overall). This is expected as we are targeting more competitive, higher-value keywords. The investment directly correlates with acquiring more valuable business leads.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Keyword Analysis Section -->
+            <section class="mt-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Competitive Keyword Analysis</h2>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">To acquire high-quality leads, we must compete for high-intent keywords. The table below shows the significant cost and competition for top ad positions. Our current ad impression share indicates we are often being outbid and losing visibility to competitors.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Keyword</th>
+                                    <th scope="col" class="px-6 py-3 text-center">Competition</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Top of Page Bid (High)</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Ad Impression Share</th>
+                                </tr>
+                            </thead>
+                            <tbody id="keyword-table-body">
+                                <!-- Rows will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-start">
+                        <i data-lucide="alert-triangle" class="w-8 h-8 mr-3 text-red-500 flex-shrink-0"></i>
+                        <div>
+                            <p class="font-semibold text-red-700 dark:text-red-300">The Bottom Line:</p>
+                            <p class="text-sm text-red-600 dark:text-red-400">Our budget is restricting our ability to compete effectively. An increased budget will allow us to raise our bids, improve our ad impression share for these critical keywords, and capture a larger portion of high-value business leads before our competitors do.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- Data Definitions ---
+        const kpis = {
+            cplAll: 160, cpblAll: 183, cplCpc: 160, cpblCpc: 200, allLeads: 79,
+            allBusinessLeads: 64, cpcLeads: 74, cpcBusinessLeads: 64, leadQuality: 78.8,
+        };
+
+        const rawLeadData = [
+            "1_9", "1_9", "10_49", "1_9", "11_50", "1_2", "3_10", "11_50", "3_10", "3_10",
+            "1_2", "3_10", "11_50", "1_2", "3_10", "3_10", "11_50", "1_2", "11_50", "3_10",
+            "1_2", "11_50", "11_50", "3_10", "11_50", "3_10", "3_10", "3_10", "3_10", "3_10",
+            "3_10", "11_50", "1_2", "3_10", "1_2", "1_2", "11_50", "11_50", "11_50", "3_10",
+            "3_10", "1_2", "1_2", "1_2", "3_10", "3_10", "3_10", "3_10", "3_10", "1_2",
+            "1_2", "1_2", "11_50", "11_50", "1_2", "11_50", "1_2", "3-10"
+        ];
+
+        const keywordData = [
+            { keyword: 'geolocalisation vehicules professionnels', topBid: 126.72, competition: 'Medium', impressionShare: '35%' },
+            { keyword: 'traceur vehicule entreprise', topBid: 97.87, competition: 'High', impressionShare: '85%' },
+            { keyword: 'geolocalisation flotte entreprise', topBid: 96.42, competition: 'High', impressionShare: '47%' },
+            { keyword: 'gps vehicle tracker', topBid: 77.27, competition: 'High', impressionShare: '40%' },
+            { keyword: 'geolocalisation de flotte', topBid: 75.26, competition: 'Low', impressionShare: '10%' },
+            { keyword: 'traceur gps flotte', topBid: 60.44, competition: 'High', impressionShare: '79%' },
+        ];
+        
+        // --- Chart and Table Generation on DOM Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Render Lucide Icons
+            lucide.createIcons();
+
+            // --- Chart 1: Lead Quality (Pie Chart) ---
+            // UPDATED: Process lead data into three categories
+            const processLeadData = (data) => {
+                let fleet1_2 = 0;
+                let fleet3_10 = 0;
+                let fleet11_50 = 0;
+                data.forEach(item => {
+                    if (item.includes('1_2')) {
+                        fleet1_2++;
+                    } else if (item.includes('3_10') || item.includes('1_9')) {
+                        fleet3_10++;
+                    } else if (item.includes('11_50') || item.includes('10_49')) {
+                        fleet11_50++;
+                    }
+                });
+                return {
+                    labels: ['1-2 Vehicles', '3-10 Vehicles', '11-50 Vehicles'],
+                    values: [fleet1_2, fleet3_10, fleet11_50]
+                };
+            };
+
+            const leadDistributionData = processLeadData(rawLeadData);
+            const totalSampledLeads = leadDistributionData.values.reduce((a, b) => a + b, 0);
+            // UPDATED: Calculate percentage for the 11-50 vehicle segment (index 2)
+            const largeFleetPercentage = ((leadDistributionData.values[2] / totalSampledLeads) * 100).toFixed(1);
+            document.getElementById('mediumFleetPercentage').textContent = `${largeFleetPercentage}% of our leads are from businesses with 11-50 vehicles.`;
+
+            const leadQualityCtx = document.getElementById('leadQualityChart').getContext('2d');
+            new Chart(leadQualityCtx, {
+                type: 'pie',
+                data: {
+                    labels: leadDistributionData.labels,
+                    datasets: [{
+                        data: leadDistributionData.values,
+                        // UPDATED: Added a third color for the new category
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'],
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { callbacks: { label: (context) => `${context.label}: ${context.raw} leads` } }
+                    }
+                }
+            });
+
+            // --- Chart 2: Lead Volume (Bar Chart) ---
+            const leadVolumeCtx = document.getElementById('leadVolumeChart').getContext('2d');
+            new Chart(leadVolumeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Leads', 'Business Leads'],
+                    datasets: [
+                        { label: 'All Channels', data: [kpis.allLeads, kpis.allBusinessLeads], backgroundColor: '#8884d8' },
+                        { label: 'CPC Channels', data: [kpis.cpcLeads, kpis.cpcBusinessLeads], backgroundColor: '#82ca9d' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // --- Chart 3: Cost Analysis (Horizontal Bar Chart) ---
+            const costAnalysisCtx = document.getElementById('costAnalysisChart').getContext('2d');
+            new Chart(costAnalysisCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Cost Per Lead', 'Cost Per Business Lead'],
+                    datasets: [
+                        { label: 'All Channels', data: [kpis.cplAll, kpis.cpblAll], backgroundColor: '#ffc658' },
+                        { label: 'CPC Channels', data: [kpis.cplCpc, kpis.cpblCpc], backgroundColor: '#ff8042' }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { beginAtZero: true, ticks: { callback: (value) => `€${value}` } } },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // --- Table 4: Keyword Data ---
+            const tableBody = document.getElementById('keyword-table-body');
+            const getCompetitionClass = (level) => {
+                switch (level) {
+                    case 'High': return 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300';
+                    case 'Medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300';
+                    case 'Low': return 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300';
+                    default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+                }
+            };
+
+            keywordData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600';
+                row.innerHTML = `
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${item.keyword}</th>
+                    <td class="px-6 py-4 text-center">
+                        <span class="px-2 py-1 text-xs font-medium rounded-full ${getCompetitionClass(item.competition)}">
+                            ${item.competition}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right font-mono">€${item.topBid.toFixed(2)}</td>
+                    <td class="px-6 py-4 text-right font-mono">${item.impressionShare}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+        });
+    </script>
+
+</body>
+</html>

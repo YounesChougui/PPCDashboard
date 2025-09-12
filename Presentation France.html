@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Review – France | Jun 2025 – Aug 2025</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a192f; /* A deep navy blue for a corporate feel */
+            color: #e6f1ff;
+            overflow: hidden; /* Prevent scrolling the whole page */
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 4rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(50px);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out, visibility 0.6s;
+            background-color: #0a192f;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .slide-content {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Custom card style */
+        .stat-card {
+            background-color: rgba(13, 37, 69, 0.7); /* Slightly lighter navy */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom button style */
+        .nav-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        /* Progress bar */
+        #progressBar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 6px;
+            background-color: #64ffda; /* A vibrant teal/mint accent color */
+            transition: width 0.4s ease-out;
+            z-index: 50;
+        }
+        
+        /* Slide Counter */
+        #slideCounter {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 2rem;
+            font-size: 0.875rem;
+            color: rgba(220, 220, 220, 0.5);
+            z-index: 40;
+        }
+
+        /* Custom heading gradient */
+        .gradient-text {
+            background: linear-gradient(90deg, #64ffda, #a8b2d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .list-item {
+             background: rgba(13, 37, 69, 0.7);
+             padding: 1.25rem;
+             border-left: 4px solid #64ffda;
+             transition: background-color 0.3s;
+        }
+        .list-item:hover {
+            background-color: rgba(13, 37, 69, 1);
+        }
+
+        /* Funnel visualization */
+        .funnel-step {
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .funnel-step:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Slide 1: Title -->
+    <section id="slide1" class="slide active">
+        <div class="slide-content text-center">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight text-gray-200">Performance Review – France</h1>
+            <p class="mt-4 text-2xl md:text-3xl font-medium gradient-text">Period: June 2025 – August 2025</p>
+            <div class="mt-10 mx-auto w-24 h-1 bg-teal-400 rounded"></div>
+            <p class="mt-8 text-xl md:text-2xl text-gray-400">Q3 Performance Deep Dive</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Executive Summary -->
+    <section id="slide2" class="slide">
+        <div class="slide-content">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Executive Summary (Q3)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Total Investment -->
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Total Investment</p>
+                    <p class="text-4xl font-extrabold gradient-text mt-2">€30.8K</p>
+                </div>
+                <!-- Leads -->
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Gross Leads / MQLs</p>
+                    <p class="text-4xl font-extrabold text-gray-200 mt-2">257 / <span class="text-teal-400">197</span></p>
+                </div>
+                <!-- Avg CPL -->
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Avg. CPL (MQL)</p>
+                    <p class="text-4xl font-extrabold text-gray-200 mt-2">€156.56</p>
+                </div>
+                <!-- Validity Rate -->
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Avg. Validity Rate</p>
+                    <p class="text-4xl font-extrabold text-teal-400 mt-2">77%</p>
+                </div>
+                <!-- Sales -->
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Total Sales / TCV</p>
+                    <p class="text-4xl font-extrabold text-gray-200 mt-2">35 / <span class="text-teal-400">€23.7K</span></p>
+                </div>
+                <!-- ROI -->
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Performance Trend</p>
+                    <p class="text-3xl font-bold text-gray-200 mt-2 leading-tight">Strong results in Jun-Jul, but a sharp performance drop in August.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Lead Generation Trend -->
+    <section id="slide3" class="slide">
+        <div class="slide-content flex flex-col lg:flex-row items-center gap-8">
+            <div class="w-full lg:w-2/3">
+                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center lg:text-left">Lead Generation Trend</h2>
+                <canvas id="leadGenChart"></canvas>
+            </div>
+            <div class="w-full lg:w-1/3">
+                <h3 class="text-xl font-bold mb-4 gradient-text">Key Talking Points</h3>
+                <ul class="space-y-4">
+                    <li class="list-item rounded-md">
+                        <span class="font-semibold text-gray-200">Peak Investment:</span> 
+                        <span class="text-gray-300">July saw the highest spend at €12.9K, driving peak gross leads but not peak MQLs.</span>
+                    </li>
+                    <li class="list-item rounded-md">
+                        <span class="font-semibold text-teal-400">Stable MQLs:</span>
+                        <span class="text-gray-300">MQL volume remained consistent around 65 per month.</span>
+                    </li>
+                    <li class="list-item rounded-md">
+                        <span class="font-semibold text-yellow-400">Validity Improvement:</span>
+                        <span class="text-gray-300">Lead validity improved steadily, peaking at 87% in August.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: CPL (Cost per Lead) Performance -->
+    <section id="slide4" class="slide">
+        <div class="slide-content flex flex-col lg:flex-row-reverse items-center gap-8">
+            <div class="w-full lg:w-2/3">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center lg:text-left">CPL (Cost per Lead) Performance</h2>
+                <canvas id="cplChart"></canvas>
+            </div>
+            <div class="w-full lg:w-1/3">
+                <h3 class="text-xl font-bold mb-4 gradient-text">Performance Analysis</h3>
+                <ul class="space-y-4">
+                    <li class="list-item rounded-md">
+                        <span class="font-semibold text-teal-400">Most Efficient:</span>
+                        <span class="text-gray-300">June was the most efficient month with a CPL of €128.</span>
+                    </li>
+                    <li class="list-item rounded-md">
+                        <span class="font-semibold text-red-400">July Spike:</span>
+                        <span class="text-gray-300">CPL jumped 45% to €186 in July, driven by increased investment.</span>
+                    </li>
+                    <li class="list-item rounded-md">
+                        <span class="font-semibold text-yellow-400">Persistent High Cost:</span>
+                        <span class="text-gray-300">CPL remained high in August (€150) despite reduced spend, indicating lower efficiency.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Pipeline Quality -->
+    <section id="slide5" class="slide">
+        <div class="slide-content text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Pipeline Quality & Conversion Funnel (Q3 Avg)</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-0">
+                <!-- MQL -->
+                <div class="funnel-step bg-sky-600 w-64 h-32 flex flex-col justify-center items-center p-4 rounded-t-lg md:rounded-tr-none md:rounded-l-lg">
+                    <p class="text-3xl font-bold">197 MQLs</p>
+                    <p class="text-lg">Avg. Validity Rate: 77%</p>
+                </div>
+                 <!-- Arrow -->
+                <div class="text-center font-bold text-teal-400 transform md:-translate-x-4">
+                    <p class="text-xl hidden md:block">→</p>
+                    <p class="text-xl block md:hidden">↓</p>
+                    <p>62%</p>
+                </div>
+                <!-- Opp -->
+                <div class="funnel-step bg-teal-600 w-64 h-32 flex flex-col justify-center items-center p-4 transform md:-translate-x-8">
+                    <p class="text-3xl font-bold">122 Opps</p>
+                </div>
+                <!-- Arrow -->
+                <div class="text-center font-bold text-teal-400 transform md:-translate-x-12">
+                    <p class="text-xl hidden md:block">→</p>
+                    <p class="text-xl block md:hidden">↓</p>
+                    <p>29%</p>
+                </div>
+                <!-- Sale -->
+                <div class="funnel-step bg-green-600 w-64 h-32 flex flex-col justify-center items-center p-4 rounded-b-lg md:rounded-bl-none md:rounded-r-lg transform md:-translate-x-16">
+                    <p class="text-3xl font-bold">35 Sales</p>
+                </div>
+            </div>
+            <div class="mt-12 bg-gray-800/50 p-6 rounded-lg inline-block border border-teal-400/50">
+                <p class="text-xl font-semibold"><span class="gradient-text">Key Takeaway:</span> Nearly 1 in 5 MQLs became a sale (18% conversion).</p>
+                <p class="text-gray-300 mt-1">A sharp drop in August's MQL-to-Opp rate (down to 42%) was a major issue.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Revenue Impact -->
+    <section id="slide6" class="slide">
+        <div class="slide-content">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Revenue Impact (Q3)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Total Sales Closed</p>
+                    <p class="text-5xl font-extrabold text-gray-200 mt-2">35</p>
+                </div>
+                <div class="stat-card p-6 rounded-lg text-center">
+                    <p class="text-lg text-gray-400">Total TCV Generated</p>
+                    <p class="text-5xl font-extrabold gradient-text mt-2">€23,729</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 rounded-lg bg-green-900/50 border-2 border-green-500">
+                    <h3 class="text-xl font-bold text-green-300">Best Month: July</h3>
+                    <ul class="mt-4 space-y-2 text-green-200">
+                        <li><span class="font-semibold">17</span> Sales</li>
+                        <li><span class="font-semibold">€12,606</span> TCV</li>
+                        <li>Highest revenue, but also highest CPL (€186)</li>
+                    </ul>
+                </div>
+                 <div class="p-6 rounded-lg bg-red-900/50 border-2 border-red-500">
+                    <h3 class="text-xl font-bold text-red-300">Weak Month: August</h3>
+                     <ul class="mt-4 space-y-2 text-red-200">
+                        <li><span class="font-semibold">6</span> Sales</li>
+                        <li><span class="font-semibold">€3,129</span> TCV</li>
+                        <li>Sharp decline in sales volume and value</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: What We’ve Done -->
+    <section id="slide7" class="slide">
+        <div class="slide-content">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Actions Taken in Q3</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                <div class="flex items-start space-x-4">
+                    <svg class="w-8 h-8 text-teal-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">Capitalized on June Success</h3><p class="text-gray-400">Increased budgets in July to scale top-performing campaigns.</p></div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <svg class="w-8 h-8 text-teal-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">Targeting Refinements</h3><p class="text-gray-400">Continuously refined audience targeting to improve lead validity.</p></div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <svg class="w-8 h-8 text-teal-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">Ad Creative Testing</h3><p class="text-gray-400">Launched new ad copy variations to combat rising CPCs in competitive auctions.</p></div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <svg class="w-8 h-8 text-teal-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">Bid Strategy Adjustments</h3><p class="text-gray-400">Pivoted bid strategies in August to regain control over rising costs.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Key Challenges -->
+    <section id="slide8" class="slide">
+        <div class="slide-content">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Key Challenges in Q3</h2>
+            <div class="space-y-6">
+                <div class="flex items-start space-x-4 list-item border-l-4 border-yellow-400 rounded-md">
+                    <svg class="w-8 h-8 text-yellow-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">Rising Costs & Inefficiency</h3><p class="text-gray-400">CPL increased significantly after June, indicating that higher spend did not scale efficiently.</p></div>
+                </div>
+                <div class="flex items-start space-x-4 list-item border-l-4 border-yellow-400 rounded-md">
+                    <svg class="w-8 h-8 text-yellow-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">August Performance Collapse</h3><p class="text-gray-400">A sharp drop in sales and a 40% drop in the MQL-to-Opp rate point to a severe lead quality issue in August.</p></div>
+                </div>
+                <div class="flex items-start space-x-4 list-item border-l-4 border-yellow-400 rounded-md">
+                    <svg class="w-8 h-8 text-yellow-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div><h3 class="font-semibold text-lg text-gray-200">Diminishing Returns</h3><p class="text-gray-400">July's €12.9K investment yielded high revenue but was our least efficient month, questioning the value of aggressive scaling.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Next Steps -->
+    <section id="slide9" class="slide">
+        <div class="slide-content">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Next Steps & Strategic Plan</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="list-item rounded-lg"><h3 class="font-semibold text-lg text-gray-200">August Deep-Dive Analysis</h3><p class="text-gray-400">Identify the root cause of the MQL-to-Opp conversion drop by analyzing lead sources and campaign changes.</p></div>
+                <div class="list-item rounded-lg"><h3 class="font-semibold text-lg text-gray-200">Optimize for Efficiency</h3><p class="text-gray-400">Reallocate budget towards campaigns and strategies that mirror June's efficient CPL of €128.</p></div>
+                <div class="list-item rounded-lg"><h3 class="font-semibold text-lg text-gray-200">Improve Lead Quality Filters</h3><p class="text-gray-400">Work with Sales to tighten MQL scoring and qualification criteria immediately.</p></div>
+                <div class="list-item rounded-lg"><h3 class="font-semibold text-lg text-gray-200">Implement Smart Budget Pacing</h3><p class="text-gray-400">Set stricter daily/weekly budget caps to prevent inefficient overspending and focus on profitability.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Call to Action -->
+    <section id="slide10" class="slide">
+        <div class="slide-content text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-10">Call to Action</h2>
+            <div class="space-y-6 max-w-3xl mx-auto">
+                <div class="stat-card p-6 rounded-lg text-left">
+                    <p class="text-xl font-semibold gradient-text">1. Approve Deep-Dive Analysis of August</p>
+                    <p class="text-gray-300 mt-1">Authorize a full investigation into campaign, keyword, and audience data from August to identify the source of the quality drop.</p>
+                </div>
+                 <div class="stat-card p-6 rounded-lg text-left">
+                    <p class="text-xl font-semibold gradient-text">2. Align on a New Target CPL</p>
+                    <p class="text-gray-300 mt-1">Re-align on a more sustainable target CPL, aiming for ~€130 to prioritize efficiency over volume.</p>
+                </div>
+                 <div class="stat-card p-6 rounded-lg text-left">
+                    <p class="text-xl font-semibold gradient-text">3. Schedule Urgent Sync with Sales</p>
+                    <p class="text-gray-300 mt-1">Set up a meeting this week to review August lead quality and redefine qualification criteria for Q4.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-6 right-6 z-40 flex space-x-3">
+        <button id="prevBtn" class="nav-button p-3 rounded-full text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="nextBtn" class="nav-button p-3 rounded-full text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </div>
+
+    <!-- Progress Bar & Counter -->
+    <div id="slideCounter"></div>
+    <div id="progressBar"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.slide');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const progressBar = document.getElementById('progressBar');
+            const slideCounter = document.getElementById('slideCounter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === totalSlides - 1;
+
+                const progress = ((index + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            }
+
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowRight') nextSlide();
+                else if (e.key === 'ArrowLeft') prevSlide();
+            });
+
+            showSlide(currentSlide);
+
+            const months = ['June', 'July', 'August'];
+            
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#a8b2d1';
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+
+            // Lead Gen Chart (Slide 3)
+            const leadGenCtx = document.getElementById('leadGenChart')?.getContext('2d');
+            if(leadGenCtx) {
+                new Chart(leadGenCtx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [
+                             {
+                                label: 'Investment (€K)',
+                                data: [8.1, 12.9, 9.9],
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                borderColor: '#a8b2d1',
+                                tension: 0.4,
+                                yAxisID: 'y1',
+                                borderWidth: 2,
+                            },
+                            {
+                                label: 'Gross Leads',
+                                data: [90, 91, 76],
+                                backgroundColor: 'rgba(100, 255, 218, 0.2)',
+                                borderColor: '#64ffda',
+                                tension: 0.4,
+                                yAxisID: 'y',
+                                borderWidth: 3,
+                                pointBackgroundColor: '#64ffda',
+                                pointRadius: 4,
+                            },
+                            {
+                                label: 'MQLs',
+                                data: [63, 68, 66],
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: '#36A2EB',
+                                tension: 0.4,
+                                yAxisID: 'y',
+                                borderWidth: 2,
+                                borderDash: [5,5]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        interaction: { mode: 'index', intersect: false },
+                        scales: {
+                            y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Leads' } },
+                            y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Investment (€K)'}, grid: { drawOnChartArea: false } }
+                        },
+                        plugins: { legend: { position: 'bottom' } }
+                    }
+                });
+            }
+
+            // CPL Chart (Slide 4)
+            const cplCtx = document.getElementById('cplChart')?.getContext('2d');
+            if(cplCtx) {
+                new Chart(cplCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'CPL (€)',
+                            data: [128.45, 186.33, 149.89],
+                            backgroundColor: (context) => {
+                                const chart = context.chart;
+                                const {ctx, chartArea} = chart;
+                                if (!chartArea) { return null; }
+                                const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                                gradient.addColorStop(0, 'rgba(100, 255, 218, 0.2)');
+                                gradient.addColorStop(1, 'rgba(100, 255, 218, 0.8)');
+                                return gradient;
+                            },
+                            borderColor: '#64ffda',
+                            borderWidth: 2,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: (context) => ` CPL: €${context.raw.toFixed(2)}` } }
+                        },
+                        scales: { y: { beginAtZero: false, title: { display: true, text: 'Cost Per Lead (€)' } } }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

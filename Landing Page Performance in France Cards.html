@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Performance - France</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .funnel-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .funnel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .funnel-stage {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-6 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Landing Page Performance: France</h1>
+            <p class="text-gray-600 mt-2 text-lg">Funnel Visualization (August 2025 - Present)</p>
+        </header>
+
+        <main id="funnel-charts" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Funnel charts will be dynamically inserted here -->
+        </main>
+
+        <footer class="text-center mt-12 text-gray-500">
+            <p>Data manually transcribed from the provided performance report.</p>
+        </footer>
+    </div>
+
+    <script>
+        const performanceData = [
+            { segment: 'Totals', lp: 1115, form: 316, results: 163 },
+            { segment: '/fr-fr/lp/telematique/localisation-vehicule/', lp: 384, form: 105, results: 54 },
+            { segment: '/fr-fr/lp/telematique/geolocalisation-et-suivi-de-flotte/', lp: 309, form: 83, results: 29 },
+            { segment: '/fr-fr/telematique/', lp: 152, form: 84, results: 73 },
+            { segment: '/fr-fr/lp/telematique/suivi-des-actifs/', lp: 110, form: 19, results: 6 },
+            { segment: '/fr-fr/telematique/localisation-vehicule/', lp: 68, form: 28, results: 14 },
+            { segment: '/fr-fr/lp/telematique/localisation-vehicule/ppc-telematique-vt/', lp: 40, form: 15, results: 3 },
+            { segment: '/fr-fr/telematique/centre-de-connaissances/installation/guides-videos/atom-e/', lp: 30, form: 1, results: 0 },
+            { segment: '/fr-fr/telematique/centre-de-connaissances/guides-logiciels/guides-pratiques-kinesis/', lp: 27, form: 1, results: 0 },
+            { segment: '/fr-fr/lp/telematique/localisation-vehicule/flottes/', lp: 24, form: 3, results: 2 },
+            { segment: '/fr-fr/telematique/centre-de-connaissances/installation/guides-videos/', lp: 21, form: 0, results: 0 }
+        ];
+
+        function createFunnelChart(data, index) {
+            const container = document.getElementById('funnel-charts');
+
+            const lpPercent = 100;
+            const formPercent = data.lp > 0 ? (data.form / data.lp) * 100 : 0;
+            const resultsPercent = data.lp > 0 ? (data.results / data.lp) * 100 : 0;
+            
+            const lpToFormCR = data.lp > 0 ? ((data.form / data.lp) * 100).toFixed(1) : 0;
+            const formToResultsCR = data.form > 0 ? ((data.results / data.form) * 100).toFixed(1) : 0;
+            const overallCR = data.lp > 0 ? ((data.results / data.lp) * 100).toFixed(1) : 0;
+
+            const isTotal = data.segment === 'Totals';
+            const cardBg = isTotal ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200';
+            const titleColor = isTotal ? 'text-indigo-700' : 'text-gray-800';
+
+            const funnelElement = document.createElement('div');
+            funnelElement.className = `funnel-card p-5 rounded-xl shadow-md ${cardBg} border`;
+
+            funnelElement.innerHTML = `
+                <div class="flex-grow">
+                    <div class="flex justify-between items-start gap-2 mb-4">
+                        <h2 class="font-bold ${titleColor} text-sm break-all">${isTotal ? 'Σ Totals' : data.segment}</h2>
+                        <span class="flex-shrink-0 text-sm font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">
+                            ${overallCR}% CR
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center text-center text-white text-xs font-bold">
+                        <!-- LP Stage -->
+                        <div class="funnel-stage bg-blue-500 rounded-t-md p-2 w-full">
+                            <span class="block">LP Visitors</span>
+                            <span class="text-lg">${data.lp.toLocaleString()}</span>
+                        </div>
+                        <div class="text-gray-500 font-semibold my-1.5 text-xs">
+                            <span>&darr;</span> ${lpToFormCR}%
+                        </div>
+                        
+                        <!-- Form Stage -->
+                        <div class="funnel-stage bg-purple-500 p-2" style="width: ${formPercent.toFixed(1)}%;">
+                            <span class="block">Form</span>
+                             <span class="text-lg">${data.form.toLocaleString()}</span>
+                        </div>
+                        <div class="text-gray-500 font-semibold my-1.5 text-xs">
+                             <span>&darr;</span> ${formToResultsCR}%
+                        </div>
+
+                        <!-- Results Stage -->
+                        <div class="funnel-stage bg-green-500 rounded-b-md p-2" style="width: ${resultsPercent.toFixed(1)}%;">
+                           <span class="block">Results</span>
+                           <span class="text-lg">${data.results.toLocaleString()}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(funnelElement);
+        }
+
+        performanceData.forEach(createFunnelChart);
+    </script>
+</body>
+</html>
+

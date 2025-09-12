@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Content Optimizer</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Use Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom gradient for hero section */
+        .hero-gradient {
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .section-gradient {
+            background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm sticky top-0 z-20">
+        <div class="max-w-screen-xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold leading-tight text-gray-900">
+                    Landing Page Optimizer
+                </h1>
+                <p class="text-gray-500 mt-1 text-sm">Craft and align your landing page copy for maximum impact.</p>
+            </div>
+            <a href="#creative-preview-container" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-all transform hover:scale-105 shadow-md">
+                Jump to Preview
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-10">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Top Section: Inputs & Keyword Checker -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Left Column: Input Forms (spans 2 columns on large screens) -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Hero Section Input -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-indigo-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            Hero Section
+                        </h3>
+                        <div class="space-y-4">
+                            <div><label for="hero-headline" class="block text-sm font-medium text-gray-600 mb-1">Headline</label><input type="text" id="hero-headline" placeholder="e.g., The Future of Web Design is Here" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></div>
+                            <div><label for="hero-usps" class="block text-sm font-medium text-gray-600 mb-1">USPs (Unique Selling Propositions)</label><textarea id="hero-usps" rows="3" placeholder="e.g., Blazing Fast. Fully Responsive. SEO Optimized." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea></div>
+                            <div><label for="hero-cta" class="block text-sm font-medium text-gray-600 mb-1">CTA (Call to Action)</label><input type="text" id="hero-cta" placeholder="e.g., Get Started For Free" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 Input -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-indigo-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            Section 2
+                        </h3>
+                        <div class="space-y-4">
+                            <div><label for="section2-headline" class="block text-sm font-medium text-gray-600 mb-1">Headline</label><input type="text" id="section2-headline" placeholder="Headline for the second section" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></div>
+                            <div><label for="section2-description" class="block text-sm font-medium text-gray-600 mb-1">Description</label><textarea id="section2-description" rows="3" placeholder="Enter the section description here." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea></div>
+                            <div><label for="section2-cta" class="block text-sm font-medium text-gray-600 mb-1">CTA (Call to Action)</label><input type="text" id="section2-cta" placeholder="e.g., Learn More" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 Input -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-indigo-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            Section 3
+                        </h3>
+                        <div class="space-y-4">
+                            <div><label for="section3-headline" class="block text-sm font-medium text-gray-600 mb-1">Headline</label><input type="text" id="section3-headline" placeholder="Headline for the third section" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></div>
+                            <div><label for="section3-description" class="block text-sm font-medium text-gray-600 mb-1">Description</label><textarea id="section3-description" rows="3" placeholder="Enter the section description here." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea></div>
+                            <div><label for="section3-cta" class="block text-sm font-medium text-gray-600 mb-1">CTA (Call to Action)</label><input type="text" id="section3-cta" placeholder="e.g., Sign Up Now" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Keyword Checker -->
+                <div class="sticky top-24 h-fit">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-indigo-500"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                            Keyword Alignment Checker
+                        </h3>
+                        <div>
+                            <label for="keywords" class="block text-sm font-medium text-gray-600 mb-1">Google Ads Keywords</label>
+                            <textarea id="keywords" rows="4" placeholder="Enter keywords separated by commas..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea>
+                        </div>
+                        <div id="keyword-status-container" class="mt-4 hidden">
+                            <h4 class="font-semibold text-gray-700 mb-2">Keyword Status:</h4>
+                            <ul id="keyword-status-list" class="space-y-2"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Creative Preview -->
+            <div id="creative-preview-container" class="bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 sm:p-6 lg:p-8">
+                <h2 class="text-3xl font-black text-center text-gray-800 mb-8">Live Creative Preview</h2>
+                <div class="space-y-16">
+                    <!-- Hero Preview -->
+                    <section id="hero-preview" class="hero-gradient p-8 md:p-12 rounded-2xl shadow-lg overflow-hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center md:text-left">
+                                <h2 id="hero-preview-headline" class="text-4xl md:text-6xl font-black text-gray-900 mb-5 leading-tight">Your Headline Goes Here</h2>
+                                <p id="hero-preview-usps" class="text-gray-700 mb-8 whitespace-pre-line text-lg">Your unique selling propositions will appear here.</p>
+                                <div id="hero-preview-cta-container"></div>
+                            </div>
+                            <div class="flex items-center justify-center p-4">
+                                <svg class="w-full h-auto rounded-lg text-gray-400/50" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" rx="16" fill="currentColor"/><path d="M79 213L136.99 155.01L186.985 205.005L261.972 130.018L329.962 198.008" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="275" cy="100" r="25" stroke="rgba(255,255,255,0.5)" stroke-width="8"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" fill="rgba(255,255,255,0.6)" class="font-bold select-none">IMAGE</text></svg>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Section 2 Preview -->
+                    <section id="section2-preview" class="bg-white p-8 md:p-12 rounded-2xl shadow-lg overflow-hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h2 id="section2-preview-headline" class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-5">Your Headline Goes Here</h2>
+                                <p id="section2-preview-description" class="text-gray-600 mb-8 whitespace-pre-line text-lg">Your description will appear here.</p>
+                                <div id="section2-preview-cta-container"></div>
+                            </div>
+                            <div class="flex items-center justify-center p-4">
+                                <svg class="w-full h-auto rounded-lg text-gray-300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" rx="16" fill="currentColor"/><path d="M125 108h150v84H125z" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" /><path d="M100 217V83" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" /><path d="M300 217V83" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" /><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" fill="rgba(255,255,255,0.6)" class="font-bold select-none">FEATURE</text></svg>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Section 3 Preview -->
+                    <section id="section3-preview" class="section-gradient p-8 md:p-12 rounded-2xl shadow-lg overflow-hidden">
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h2 id="section3-preview-headline" class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-5">Your Headline Goes Here</h2>
+                                <p id="section3-preview-description" class="text-gray-600 mb-8 whitespace-pre-line text-lg">Your description will appear here.</p>
+                                <div id="section3-preview-cta-container"></div>
+                            </div>
+                            <div class="flex items-center justify-center p-4">
+                               <svg class="w-full h-auto rounded-lg text-gray-400/60" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" rx="16" fill="currentColor"/><path d="M100 130c27.614 0 50-17.909 50-40s-22.386-40-50-40-50 17.909-50 40 22.386 40 50 40z" stroke="rgba(255,255,255,0.4)" stroke-width="8"/><path d="M100 130v40c0 16.569-22.386 30-50 30s-50-13.431-50-30v-40" stroke="rgba(255,255,255,0.4)" stroke-width="8" stroke-linecap="round"/><path d="M150 130v40c0 16.569 22.386 30 50 30s50-13.431 50-30v-40" stroke="rgba(255,255,255,0.4)" stroke-width="8" stroke-linecap="round"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" fill="rgba(255,255,255,0.6)" class="font-bold select-none">BENEFIT</text></svg>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Element References ---
+            const inputs = {
+                hero: { headline: document.getElementById('hero-headline'), usps: document.getElementById('hero-usps'), cta: document.getElementById('hero-cta') },
+                section2: { headline: document.getElementById('section2-headline'), description: document.getElementById('section2-description'), cta: document.getElementById('section2-cta') },
+                section3: { headline: document.getElementById('section3-headline'), description: document.getElementById('section3-description'), cta: document.getElementById('section3-cta') },
+                keywords: document.getElementById('keywords'),
+            };
+
+            const previews = {
+                hero: { headline: document.getElementById('hero-preview-headline'), description: document.getElementById('hero-preview-usps'), ctaContainer: document.getElementById('hero-preview-cta-container') },
+                section2: { headline: document.getElementById('section2-preview-headline'), description: document.getElementById('section2-preview-description'), ctaContainer: document.getElementById('section2-preview-cta-container') },
+                section3: { headline: document.getElementById('section3-preview-headline'), description: document.getElementById('section3-preview-description'), ctaContainer: document.getElementById('section3-preview-cta-container') },
+            };
+            
+            const keywordStatusContainer = document.getElementById('keyword-status-container');
+            const keywordStatusList = document.getElementById('keyword-status-list');
+
+            const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+            const xIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
+
+            function updateAll() {
+                let fullContent = '';
+                ['hero', 'section2', 'section3'].forEach(section => {
+                    const sectionInputs = inputs[section];
+                    const sectionPreviews = previews[section];
+                    const headline = sectionInputs.headline.value;
+                    // Use 'usps' for hero, 'description' for others
+                    const description = section === 'hero' ? sectionInputs.usps.value : sectionInputs.description.value;
+                    const cta = sectionInputs.cta.value;
+
+                    sectionPreviews.headline.textContent = headline || 'Your Headline Goes Here';
+                    sectionPreviews.description.textContent = description || 'Your content will appear here.';
+                    
+                    sectionPreviews.ctaContainer.innerHTML = '';
+                    if (cta) {
+                        sectionPreviews.ctaContainer.innerHTML = `
+                            <button class="bg-indigo-600 text-white font-bold py-4 px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-indigo-300 flex items-center text-xl">
+                                ${cta}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ml-3"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </button>
+                        `;
+                    }
+                    fullContent += `${headline} ${description} ${cta} `;
+                });
+                updateKeywordCheck(fullContent.toLowerCase());
+            }
+            
+            function updateKeywordCheck(content) {
+                const keywordText = inputs.keywords.value.trim();
+                if (!keywordText) {
+                    keywordStatusContainer.classList.add('hidden');
+                    return;
+                }
+                keywordStatusContainer.classList.remove('hidden');
+                keywordStatusList.innerHTML = '';
+                const keywordList = keywordText.split(',').map(k => k.trim().toLowerCase()).filter(Boolean);
+                keywordList.forEach(keyword => {
+                    const found = content.includes(keyword);
+                    const li = document.createElement('li');
+                    li.className = `flex items-center text-sm p-2 rounded-md ${found ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+                    li.innerHTML = `${found ? checkIcon : xIcon}<span class="break-all">${keyword}</span>`;
+                    keywordStatusList.appendChild(li);
+                });
+            }
+
+            Object.values(inputs).forEach(sectionObject => {
+                 Object.values(sectionObject).forEach(inputElement => {
+                    if(inputElement) inputElement.addEventListener('input', updateAll);
+                 });
+            });
+
+            updateAll();
+        });
+    </script>
+
+</body>
+</html>

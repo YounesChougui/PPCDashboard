@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Stratégie d'Enchères SEM | Basé sur le CPL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-color: #0d47a1; /* Deep Blue */
+            --secondary-color: #1565c0; /* Lighter Blue */
+            --text-color: #333;
+            --light-gray: #f4f7f6;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+            --cpl-very-high: #c62828;
+            --cpl-high: #ef6c00;
+            --cpl-medium: #1976d2;
+            --cpl-low: #388e3c;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+        
+        h1 + p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .ad-group-card {
+            border: 1px solid var(--border-color);
+            border-left-width: 6px;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s ease;
+        }
+        .ad-group-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.7em;
+            font-weight: 500;
+        }
+
+        .cpl-badge {
+            font-size: 0.8em;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        /* CPL Badge Colors */
+        .cpl-very-high-badge { background-color: var(--cpl-very-high); }
+        .cpl-high-badge { background-color: var(--cpl-high); }
+        .cpl-medium-badge { background-color: var(--cpl-medium); }
+        .cpl-low-badge { background-color: var(--cpl-low); }
+
+        /* Card Border Colors */
+        .cpl-very-high-card { border-left-color: var(--cpl-very-high); }
+        .cpl-high-card { border-left-color: var(--cpl-high); }
+        .cpl-medium-card { border-left-color: var(--cpl-medium); }
+        .cpl-low-card { border-left-color: var(--cpl-low); }
+        
+        h3 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .keyword-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .keyword-list li {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            background-color: #e3f2fd;
+            color: var(--secondary-color);
+        }
+        
+        .analysis-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            font-size: 0.95em;
+        }
+        
+        .analysis-box p:first-child { margin-top: 0; }
+        .analysis-box p:last-child { margin-bottom: 0; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Rapport de Stratégie d'Enchères SEM | Basé sur le CPL</h1>
+        <p>Restructuration des campagnes selon le Coût Par Lead (CPL) estimé, du plus élevé au plus économique, basée sur les données de performance Google Ads.</p>
+
+        <div class="ad-group-card cpl-very-high-card">
+            <div class="card-header">
+                <h2>CPL Très Élevé : Trafic Large à Qualifier</h2>
+                <span class="cpl-badge cpl-very-high-badge">CPL TRÈS ÉLEVÉ</span>
+            </div>
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>dispositif de géolocalisation</li>
+                <li>géolocalisation d un véhicule</li>
+                <li>géolocalisation vehicules</li>
+            </ul>
+            <h3>Analyse CPL (Basée sur vos données)</h3>
+            <div class="analysis-box">
+                <p><strong>CPC Élevé, Conversion Faible :</strong> Ce groupe combine des enchères significatives (ex: <strong>€30.76</strong> pour <code>géolocalisation vehicules</code>) avec une intention d'utilisateur très large, attirant un trafic mixte B2C/B2B.</p>
+                <p><strong>Faible Part d'Impression :</strong> Votre part d'impression très faible (<3%) indique que pour être visible, vous devrez payer le prix fort, sans garantie de qualification. Le coût par clic est donc élevé pour un taux de conversion B2B faible, résultant mécaniquement en un CPL très élevé.</p>
+            </div>
+            <h3>Stratégie Recommandée</h3>
+            <div class="analysis-box">
+                <p>À utiliser avec des budgets très limités. Ciblez avec des annonces et des landing pages "100% B2B" pour filtrer le trafic en amont. Utilisez une liste de mots-clés négatifs très agressive.</p>
+            </div>
+        </div>
+        
+        <div class="ad-group-card cpl-high-card">
+            <div class="card-header">
+                <h2>CPL Élevé : Cœur de Flotte B2B</h2>
+                <span class="cpl-badge cpl-high-badge">CPL ÉLEVÉ</span>
+            </div>
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>geolocalisation flotte entreprise</li>
+                <li>traceur vehicule entreprise</li>
+                <li>traceur gps flotte</li>
+                <li>suivi gps flotte vehicule</li>
+            </ul>
+             <h3>Analyse CPL (Basée sur vos données)</h3>
+            <div class="analysis-box">
+                <p><strong>CPC Extrêmement Élevés :</strong> Ce sont les mots-clés les plus disputés et les plus chers (jusqu'à <strong>€97.24</strong> pour <code>traceur vehicule entreprise</code>). L'intention est parfaitement qualifiée.</p>
+                <p><strong>Conclusion :</strong> Même avec un excellent taux de conversion, le coût par clic pur est si important que le CPL sera structurellement élevé. C'est le coût d'acquisition pour obtenir les leads les plus matures.</p>
+            </div>
+            <h3>Stratégie Recommandée</h3>
+            <div class="analysis-box">
+                <p>Allouer une part de budget contrôlée. Optimiser le Quality Score au maximum pour réduire le CPC. Mettre en avant vos différenciants clés (prix, fonctionnalités) pour maximiser le taux de conversion de ces clics coûteux.</p>
+            </div>
+        </div>
+
+        <div class="ad-group-card cpl-medium-card">
+            <div class="card-header">
+                <h2>CPL Moyen : Niches Actifs & Chantier</h2>
+                <span class="cpl-badge cpl-medium-badge">CPL MOYEN</span>
+            </div>
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>géolocalisation outillage</li>
+                <li>traceur gps chantier</li>
+                <li>puce gps outillage</li>
+                <li>traceur gps materiel</li>
+                <li>gps chantier</li>
+                <li>outil de gestion de flotte</li>
+            </ul>
+            <h3>Analyse CPL (Basée sur vos données)</h3>
+            <div class="analysis-box">
+                <p><strong>CPC Modérés, Haute Pertinence :</strong> La concurrence est "High" mais les enchères sont plus raisonnables (ex: <strong>€6.12</strong> pour <code>géolocalisation outillage</code>). Votre part d'impression élevée (jusqu'à 90%) montre que vous êtes déjà compétitif.</p>
+                <p><strong>Conclusion :</strong> L'intention est très spécifique (BTP, actifs), ce qui favorise un excellent taux de conversion. Combiné à un CPC maîtrisé, cela mène à un CPL très rentable. C'est le moteur de votre croissance.</p>
+            </div>
+            <h3>Stratégie Recommandée</h3>
+            <div class="analysis-box">
+                <p>Protéger et dominer cet espace. Maintenir une part d'impression élevée et créer des landing pages dédiées par cas d'usage (BTP, outillage, etc.) pour maximiser la conversion.</p>
+            </div>
+        </div>
+
+        <div class="ad-group-card cpl-low-card">
+            <div class="card-header">
+                <h2>CPL Faible : Opportunités Rentables</h2>
+                <span class="cpl-badge cpl-low-badge">CPL FAIBLE</span>
+            </div>
+             <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>boitier télématique</li>
+                <li>gps remorque</li>
+                <li>gestion des véhicules</li>
+                <li>puce gps pour outillage</li>
+                <li>traceur pour remorque</li>
+                <li>gestion de flottes</li>
+            </ul>
+             <h3>Analyse CPL (Basée sur vos données)</h3>
+            <div class="analysis-box">
+                <p><strong>CPC Faibles :</strong> Ce groupe bénéficie d'une concurrence "Low" ou de faibles enchères (ex: <strong>€5.27</strong> pour <code>gps remorque</code>, <strong>€1.97</strong> pour <code>puce gps pour outillage</code>).</p>
+                <p><strong>Conclusion :</strong> L'intention reste qualifiée pour un public B2B. La combinaison d'un CPC très bas et d'une intention pertinente se traduit directement par le CPL le plus bas de votre stratégie.</p>
+            </div>
+            <h3>Stratégie Recommandée</h3>
+            <div class="analysis-box">
+                <p>Maximiser la visibilité en visant une part d'impression de 100%. Utiliser des stratégies d'enchères comme "Maximiser les conversions". Mettre en avant le prix ("dès 8€") dans les annonces pour attirer les PME.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Restructuration de Campagne SEM</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #0d47a1; /* Deep Blue */
+            --secondary-color: #1565c0; /* Lighter Blue */
+            --accent-color: #4caf50; /* Green for benefits */
+            --danger-color: #d32f2f; /* Red for negatives */
+            --warning-color: #f57c00; /* Orange for irrelevant */
+            --text-color: #333;
+            --light-gray: #f4f7f6;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+        
+        h1 + p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .ad-group-card, .irrelevant-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .ad-group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            color: var(--secondary-color);
+            font-size: 1.8em;
+            font-weight: 500;
+        }
+
+        .intent-badge {
+            font-size: 0.8em;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: var(--white);
+        }
+        
+        .intent-very-high { background-color: #c62828; }
+        .intent-high { background-color: #ef6c00; }
+        .intent-medium { background-color: #f9a825; }
+        .intent-low { background-color: #2e7d32; }
+
+
+        h3 {
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .keyword-list, .negative-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .keyword-list li, .negative-list li {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            background-color: #e3f2fd;
+            color: var(--secondary-color);
+            border: 1px solid #bbdefb;
+        }
+        
+        .negative-list li {
+            background-color: #ffebee;
+            color: var(--danger-color);
+            border-color: #ffcdd2;
+        }
+        
+        .benefits-list {
+            list-style: '✅ ';
+            padding-left: 20px;
+        }
+
+        .benefits-list li {
+            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        
+        .preview-box {
+            background-color: #f9f9f9;
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .preview-box .preview-h1 {
+            font-size: 1.2em;
+            color: #1a0dab;
+            font-weight: 400;
+            margin: 0 0 5px 0;
+        }
+        
+        .preview-box .preview-meta {
+            font-size: 0.95em;
+            color: #4d5156;
+            margin: 0;
+        }
+
+        .irrelevant-card {
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .irrelevant-card h2 {
+            color: var(--warning-color);
+        }
+
+        .irrelevant-list li {
+            background-color: #fff3e0;
+            color: #e65100;
+            border-color: #ffe0b2;
+        }
+        
+        .irrelevant-list li strong {
+            display: block;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Rapport de Restructuration de Campagne SEM</h1>
+        <p>Analyse et segmentation des mots-clés pour la création de groupes d'annonces B2B pertinents et performants.</p>
+
+        <div class="ad-group-card">
+            <div class="card-header">
+                <h2>Groupe 1 : Solution Gestion de Flotte Entreprise</h2>
+                <span class="intent-badge intent-very-high">INTENTION TRÈS ÉLEVÉE</span>
+            </div>
+            
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>geolocalisation flotte entreprise</li>
+                <li>geolocalisation vehicule entreprise</li>
+                <li>logiciel gestion flotte automobile</li>
+                <li>solution de gestion de flotte</li>
+                <li>outil de gestion de flotte</li>
+                <li>traceur vehicule entreprise</li>
+            </ul>
+
+            <h3>Intention de l'Utilisateur</h3>
+            <p>L'utilisateur recherche activement une solution professionnelle complète pour gérer et suivre la flotte de véhicules de son entreprise.</p>
+
+            <h3>Bénéfices Clés à Mettre en Avant</h3>
+            <ul class="benefits-list">
+                <li>Solution complète dès 8€</li>
+                <li>Suivi des performances des véhicules (optimisation des coûts)</li>
+                <li>Historique détaillé des trajets</li>
+            </ul>
+
+            <h3>Exemples de Créas</h3>
+            <div class="preview-box">
+                <h4 class="preview-h1">Solution de Gestion de Flotte Complète | Optimisez Vos Opérations dès 8€</h4>
+                <p class="preview-meta">Gérez votre flotte d'entreprise efficacement. Suivi temps réel, rapports de performance, économies de carburant. Solution pro dès 8€. Demander un devis.</p>
+            </div>
+
+            <h3>Mots-clés Négatifs Suggérés</h3>
+            <ul class="negative-list">
+                <li>-gratuit</li>
+                <li>-particulier</li>
+                <li>-occasion</li>
+                <li>-voiture personnelle</li>
+                <li>-espion</li>
+                <li>-stage</li>
+                <li>-emploi</li>
+            </ul>
+        </div>
+        
+        <div class="ad-group-card">
+            <div class="card-header">
+                <h2>Groupe 2 : Géolocalisation Actifs & Matériel</h2>
+                <span class="intent-badge intent-high">INTENTION ÉLEVÉE</span>
+            </div>
+            
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>géolocalisation outillage</li>
+                <li>gps chantier</li>
+                <li>gps remorque</li>
+                <li>puce gps outillage</li>
+                <li>puce gps pour outillage</li>
+                <li>traceur gps chantier</li>
+                <li>traceur gps materiel</li>
+                <li>traceur gps pour materiel</li>
+                <li>traceur gps pour remorque</li>
+                <li>traceur outillage</li>
+            </ul>
+
+            <h3>Intention de l'Utilisateur</h3>
+            <p>L'utilisateur cherche un moyen de localiser et sécuriser des actifs de valeur comme de l'outillage, du matériel de chantier ou des remorques.</p>
+
+            <h3>Bénéfices Clés à Mettre en Avant</h3>
+            <ul class="benefits-list">
+                <li>Géorepérage en Temps Réel (alertes vol)</li>
+                <li>Solution robuste et discrète dès 8€</li>
+                <li>Historique des positions pour retrouver le matériel</li>
+            </ul>
+            
+            <h3>Exemples de Créas</h3>
+            <div class="preview-box">
+                <h4 class="preview-h1">Traceur GPS pour Outillage et Matériel | Sécurisez Vos Actifs dès 8€</h4>
+                <p class="preview-meta">Ne perdez plus votre matériel. Suivez vos outils, engins de chantier et remorques en temps réel. Alertes de géorepérage. Demander un devis.</p>
+            </div>
+
+            <h3>Mots-clés Négatifs Suggérés</h3>
+            <ul class="negative-list">
+                <li>-vélo</li>
+                <li>-chien</li>
+                <li>-chat</li>
+                <li>-personne</li>
+                <li>-enfant</li>
+                <li>-scooter</li>
+                <li>-moto</li>
+            </ul>
+        </div>
+
+        <div class="ad-group-card">
+            <div class="card-header">
+                <h2>Groupe 3 : Suivi de Flotte GPS (Générique)</h2>
+                <span class="intent-badge intent-medium">INTENTION MOYENNE</span>
+            </div>
+
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>dispositif de suivi gps de flotte</li>
+                <li>geolocalisation flotte</li>
+                <li>geolocalisation vehicules</li>
+                <li>gestion de flottes</li>
+                <li>gestion des véhicules</li>
+                <li>suivi gps de flotte</li>
+                <li>suivi gps flotte vehicule</li>
+                <li>traceur flotte vehicule</li>
+                <li>traceur gps flotte</li>
+            </ul>
+
+            <h3>Intention de l'Utilisateur</h3>
+            <p>L'utilisateur s'informe sur les systèmes de suivi GPS pour des flottes de véhicules, probablement en phase de recherche initiale.</p>
+            
+            <h3>Bénéfices Clés à Mettre en Avant</h3>
+            <ul class="benefits-list">
+                <li>Suivi en temps réel</li>
+                <li>Solution avancée dès 8€</li>
+                <li>Géorepérage et alertes</li>
+            </ul>
+
+            <h3>Exemples de Créas</h3>
+            <div class="preview-box">
+                <h4 class="preview-h1">Système de Suivi de Flotte par GPS | Localisez Vos Véhicules en Temps Réel</h4>
+                <p class="preview-meta">Découvrez notre plateforme de suivi de flotte GPS. Visualisez vos véhicules en temps réel, optimisez les trajets et réduisez les coûts. Demander un devis.</p>
+            </div>
+
+            <h3>Mots-clés Négatifs Suggérés</h3>
+            <ul class="negative-list">
+                <li>-gratuit</li>
+                <li>-application</li>
+                <li>-tutoriel</li>
+                <li>-particulier</li>
+                <li>-sans abonnement</li>
+                <li>-formation</li>
+            </ul>
+        </div>
+
+        <div class="ad-group-card">
+            <div class="card-header">
+                <h2>Groupe 4 : Boîtiers & Dispositifs (Hardware)</h2>
+                <span class="intent-badge intent-low">INTENTION PLUS FAIBLE</span>
+            </div>
+
+            <h3>Mots-clés</h3>
+            <ul class="keyword-list">
+                <li>boitier télématique</li>
+                <li>dispositif de géolocalisation</li>
+                <li>telematique embarque</li>
+            </ul>
+
+            <h3>Intention de l'Utilisateur</h3>
+            <p>L'utilisateur recherche le composant matériel spécifique (le boîtier/traceur), avec une intention potentiellement moins définie (B2B ou B2C).</p>
+            
+            <h3>Bénéfices Clés à Mettre en Avant</h3>
+            <ul class="benefits-list">
+                <li>Notre boîtier fait partie d'une solution professionnelle complète</li>
+                <li>Solution fiable et performante dès 8€/mois</li>
+                <li>Installation facile et support dédié</li>
+            </ul>
+
+            <h3>Exemples de Créas</h3>
+            <div class="preview-box">
+                <h4 class="preview-h1">Boîtier de Géolocalisation GPS Professionnel | Solution Complète dès 8€</h4>
+                <p class="preview-meta">Équipez vos véhicules avec notre boîtier de géolocalisation avancé. Suivi temps réel, rapports détaillés. Solution pro dès 8€/mois. Demander un devis.</p>
+            </div>
+
+            <h3>Mots-clés Négatifs Suggérés</h3>
+            <ul class="negative-list">
+                <li>-amazon</li>
+                <li>-ebay</li>
+                <li>-avis</li>
+                <li>-comparatif</li>
+                <li>-schéma</li>
+                <li>-bricolage</li>
+                <li>-espionnage</li>
+            </ul>
+        </div>
+
+        <div class="irrelevant-card">
+            <div class="card-header">
+                <h2>Mots-clés Non Pertinents (à exclure)</h2>
+            </div>
+            <p>Ces mots-clés présentent un risque élevé d'attirer un trafic non qualifié et doivent être exclus pour préserver le budget publicitaire.</p>
+            <ul class="keyword-list irrelevant-list">
+                <li>
+                    <strong>`géolocalisation d un véhicule`</strong>
+                    Trop générique, attire majoritairement un trafic B2C.
+                </li>
+                <li>
+                    <strong>`gestionnaire de flotte`</strong>
+                    Recherche liée à un emploi, non à un achat.
+                </li>
+                <li>
+                    <strong>`gestionnaire de flotte de véhicule`</strong>
+                    Intention informationnelle sur la profession.
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>

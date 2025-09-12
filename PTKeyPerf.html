@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Performance Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* A light grey background */
+        }
+        /* A subtle hover effect for list items */
+        .keyword-item:hover {
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-4xl mx-auto">
+            
+            <!-- Header Section -->
+            <header class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Keyword Performance Tracker</h1>
+                <p class="text-gray-600 mt-2">An overview of recorded leads and conversions from your track terms.</p>
+            </header>
+
+            <!-- Main Card for the Tracker -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6 md:p-8">
+                    
+                    <!-- Chart Header -->
+                    <div class="flex items-center text-sm font-semibold text-gray-500 mb-4 px-4">
+                        <div class="w-1/3">SOURCE: TRACK TERM</div>
+                        <div class="w-2/3 flex justify-between">
+                            <span>PERFORMANCE</span>
+                            <span class="hidden sm:inline">LEADS / CONVERTED</span>
+                        </div>
+                    </div>
+
+                    <!-- Keywords List -->
+                    <ul id="keyword-list" class="space-y-3">
+                       <!-- Keyword data will be dynamically inserted here by JavaScript -->
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <footer class="text-center mt-8 text-sm text-gray-500">
+                <p>&copy; 2024 Keyword Insights. All rights reserved.</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Data for the keyword tracker ---
+            // This data is updated to include all keywords from the provided images.
+            const keywordData = [
+                { term: 'contrack', leads: 1, converted: 1 },
+                { term: 'gestão de frotas', leads: 6, converted: 4 },
+                { term: 'gestão de frotas por gps', leads: 8, converted: 8 },
+                { term: 'gps carro', leads: 4, converted: 1 },
+                { term: 'gps carros empresas', leads: 1, converted: 0 },
+                { term: 'gps em viaturas de empresa', leads: 1, converted: 1 },
+                { term: 'gps frota', leads: 10, converted: 7 },
+                { term: 'gps localizador carro', leads: 2, converted: 1 },
+                { term: 'gps localization', leads: 1, converted: 1 },
+                { term: 'gps para carro', leads: 12, converted: 7 },
+                { term: 'gps para carros', leads: 1, converted: 0 },
+                { term: 'gps para veiculos', leads: 1, converted: 1 },
+                { term: 'gps para viaturas', leads: 2, converted: 2 },
+                { term: 'gps tracker', leads: 4, converted: 3 },
+                { term: 'gps viaturas', leads: 4, converted: 2 },
+                { term: 'localização de veiculos', leads: 1, converted: 1 },
+                { term: 'localização de viaturas', leads: 4, converted: 3 },
+                { term: 'localizador automovel', leads: 2, converted: 1 },
+                { term: 'localizador carro', leads: 11, converted: 3 },
+                { term: 'localizador de carros em tempo real', leads: 3, converted: 1 },
+                { term: 'localizador de carro tempo real', leads: 1, converted: 0 },
+                { term: 'localizador de veiculos gps', leads: 13, converted: 9 },
+                { term: 'localizador de viaturas', leads: 3, converted: 3 },
+                { term: 'localizadores de veiculos', leads: 2, converted: 1 },
+                { term: 'localizadores de viaturas', leads: 1, converted: 0 },
+                { term: 'localizador gps de veiculos', leads: 2, converted: 2 },
+                { term: 'localizador gps para carrinhas', leads: 8, converted: 5 },
+                { term: 'localizador gps para carros', leads: 28, converted: 11 },
+                { term: 'localizador gps para empresas', leads: 1, converted: 0 },
+                { term: 'localizador gps para frotas', leads: 4, converted: 3},
+                { term: 'localizador para carrinhas', leads: 7, converted: 3 },
+                { term: 'localizador para carros', leads: 8, converted: 3 },
+                { term: 'localizador veiculo', leads: 4, converted: 2 },
+                { term: 'localizador viatura', leads: 5, converted: 4 },
+                { term: 'localizador viaturas', leads: 1, converted: 1 },
+                { term: 'localizar um veiculo', leads: 1, converted: 0 },
+                { term: 'radius', leads: 6, converted: 2 },
+                { term: 'radius cartao combustivel', leads: 1, converted: 1 },
+                { term: 'rastreador automovel', leads: 2, converted: 1 },
+                { term: 'rastreador automóvel', leads: 1, converted: 1 },
+                { term: 'rastreador carro', leads: 3, converted: 1 },
+                { term: 'rastreador de carro', leads: 1, converted: 1 },
+                { term: 'rastreador de veiculos para empresa', leads: 4, converted: 3 },
+                { term: 'rastreadores veiculares', leads: 2, converted: 2 },
+                { term: 'rastreador gps auto', leads: 1, converted: 1 },
+                { term: 'rastreador para carros', leads: 1, converted: 1 },
+                { term: 'rastreamento automotivo', leads: 4, converted: 1 },
+                { term: 'rastreamento de ativos', leads: 5, converted: 2 },
+                { term: 'rastreamento para frotas', leads: 2, converted: 2 },
+                { term: 'rastreamento veicular', leads: 8, converted: 4 },
+                { term: 'rasteio de frota', leads: 14, converted: 11 },
+                { term: 'sistema de localização de viaturas', leads: 1, converted: 0 },
+                { term: 'sistema de rastreamento de ativos', leads: 5, converted: 4 },
+                { term: 'sistema de rastreamento de veiculos', leads: 1, converted: 1 },
+                { term: 'sistemas de gestão de frotas', leads: 7, converted: 7 },
+                { term: 'tecnologia para gestão de frotas', leads: 2, converted: 2 }
+            ];
+
+            // --- Sort the data from highest leads to lowest ---
+            keywordData.sort((a, b) => b.leads - a.leads);
+
+            const listElement = document.getElementById('keyword-list');
+            
+            // Find the maximum value from all leads to set a consistent scale for the bars.
+            const maxRecord = Math.max(...keywordData.map(item => item.leads));
+
+            // --- Function to generate the HTML for each keyword item ---
+            function createKeywordItem(item) {
+                // Calculate the width of each bar as a percentage of the overall maximum record count.
+                const leadsPercentage = (item.leads / maxRecord) * 100;
+                const convertedPercentage = (item.converted / maxRecord) * 100;
+
+                return `
+                    <li class="keyword-item bg-white rounded-lg p-4 flex items-center transition duration-300 ease-in-out">
+                        <!-- Keyword Name -->
+                        <div class="w-1/3 font-medium text-gray-700 truncate pr-4">${item.term}</div>
+                        
+                        <!-- Performance Bars & Data -->
+                        <div class="w-2/3 flex items-center space-x-4">
+                            <!-- Bar Chart Container -->
+                            <div class="w-full bg-gray-200 rounded-full h-5 relative">
+                                <!-- Light blue bar for total leads -->
+                                <div class="absolute top-0 left-0 h-full bg-blue-400 rounded-full" style="width: 0%; transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);" data-width="${leadsPercentage}%"></div>
+                                <!-- Dark blue bar for converted leads -->
+                                <div class="absolute top-0 left-0 h-full bg-blue-700 rounded-full" style="width: 0%; transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s;" data-width="${convertedPercentage}%"></div>
+                            </div>
+                            <!-- Data Values -->
+                            <div class="w-32 text-right text-sm font-semibold">
+                                <span class="text-gray-900">${item.leads.toLocaleString()}</span>
+                                <span class="text-gray-400">/</span>
+                                <span class="text-blue-600">${item.converted.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            }
+
+            // --- Populate the list with data ---
+            listElement.innerHTML = keywordData.map(createKeywordItem).join('');
+            
+            // --- Animate the bars into view on page load ---
+            // A slight delay ensures the elements are rendered before the animation starts.
+            setTimeout(() => {
+                const bars = document.querySelectorAll('[data-width]');
+                bars.forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width');
+                });
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>

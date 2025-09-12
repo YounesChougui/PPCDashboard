@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Spend Tracker</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and ReactDOM for building the UI -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Recharts for charts -->
+    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+    <!-- Babel to transpile JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Destructuring necessary components from global objects ---
+        // Simplified imports to only include what's necessary.
+        const { useState, useMemo } = React;
+        const { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } = Recharts;
+
+        // --- Mock Data ---
+        // This data simulates daily ad spend and revenue.
+        const dailyPerformanceData = [
+            { date: '2023-10-01', googleSpend: 250, microsoftSpend: 150, revenue: 1800 },
+            { date: '2023-10-02', googleSpend: 270, microsoftSpend: 160, revenue: 1950 },
+            { date: '2023-10-03', googleSpend: 300, microsoftSpend: 170, revenue: 2200 },
+            { date: '2023-10-04', googleSpend: 240, microsoftSpend: 140, revenue: 1700 },
+            { date: '2023-10-05', googleSpend: 320, microsoftSpend: 180, revenue: 2500 },
+            { date: '2023-10-06', googleSpend: 350, microsoftSpend: 190, revenue: 2800 },
+            { date: '2023-10-07', googleSpend: 310, microsoftSpend: 175, revenue: 2400 },
+            { date: '2023-10-08', googleSpend: 290, microsoftSpend: 165, revenue: 2300 },
+            { date: '2023-10-09', googleSpend: 330, microsoftSpend: 185, revenue: 2650 },
+            { date: '2023-10-10', googleSpend: 360, microsoftSpend: 200, revenue: 3000 },
+        ];
+
+        // --- Helper Functions ---
+        const formatCurrency = (num) => `$${num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        const formatNumber = (num) => num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const formatDate = (dateStr) => new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        // --- UI Components ---
+
+        // A card component to display a single, important statistic.
+        const StatCard = ({ title, value, bgColor = 'bg-white' }) => (
+            <div className={`${bgColor} p-6 rounded-xl shadow-sm`}>
+                <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+                <p className="text-3xl font-bold text-gray-900 mt-2">{value}</p>
+            </div>
+        );
+        
+        // The main application component.
+        const App = () => {
+            // --- Data Processing and Calculations ---
+            const processedData = useMemo(() => {
+                // Calculate totals and daily metrics
+                const totals = dailyPerformanceData.reduce((acc, day) => {
+                    acc.googleSpend += day.googleSpend;
+                    acc.microsoftSpend += day.microsoftSpend;
+                    acc.revenue += day.revenue;
+                    return acc;
+                }, { googleSpend: 0, microsoftSpend: 0, revenue: 0 });
+
+                totals.totalSpend = totals.googleSpend + totals.microsoftSpend;
+                totals.profit = totals.revenue - totals.totalSpend;
+                totals.roas = totals.totalSpend > 0 ? totals.revenue / totals.totalSpend : 0;
+
+                // Prepare data for charts and table
+                const dailyBreakdown = dailyPerformanceData.map(day => {
+                    const totalSpend = day.googleSpend + day.microsoftSpend;
+                    const profit = day.revenue - totalSpend;
+                    const roas = totalSpend > 0 ? day.revenue / totalSpend : 0;
+                    return { ...day, totalSpend, profit, roas, formattedDate: formatDate(day.date) };
+                }).reverse(); // Show most recent date first
+
+                const pieChartData = [
+                    { name: 'Google Ads', value: totals.googleSpend },
+                    { name: 'Microsoft Ads', value: totals.microsoftSpend },
+                ];
+
+                return { totals, dailyBreakdown, pieChartData };
+            }, [dailyPerformanceData]);
+
+            const { totals, dailyBreakdown, pieChartData } = processedData;
+            const PIE_COLORS = ['#4285F4', '#00A4EF'];
+
+            return (
+                <div className="bg-gray-50 min-h-screen p-4 sm:p-6 lg:p-8">
+                    <div className="max-w-7xl mx-auto">
+                        {/* --- Header --- */}
+                        <header className="mb-8">
+                            <h1 className="text-4xl font-bold text-gray-900">Ad Spend Tracker</h1>
+                        </header>
+
+                        {/* --- Overall Summary --- */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <StatCard title="Total Ad Spend" value={formatCurrency(totals.totalSpend)} />
+                            <StatCard title="Total Revenue" value={formatCurrency(totals.revenue)} />
+                            <StatCard title="Total Profit" value={formatCurrency(totals.profit)} />
+                            <StatCard title="ROAS" value={formatNumber(totals.roas)} />
+                        </div>
+
+                        {/* --- Charts Section --- */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                            {/* Ad Spend Breakdown (Pie Chart) */}
+                            <div className="lg:col-span-1 bg-white p-6 rounded-xl shadow-sm">
+                                <h2 className="text-xl font-bold text-gray-800 mb-4">Ad Spend Breakdown</h2>
+                                <div className="h-64 w-full">
+                                    <ResponsiveContainer>
+                                        <PieChart>
+                                            <Pie
+                                                data={pieChartData}
+                                                cx="50%"
+                                                cy="50%"
+                                                labelLine={false}
+                                                outerRadius={80}
+                                                fill="#8884d8"
+                                                dataKey="value"
+                                                nameKey="name"
+                                                label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+                                                    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                                                    const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
+                                                    const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
+                                                    return (
+                                                        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                                                            {`${(percent * 100).toFixed(0)}%`}
+                                                        </text>
+                                                    );
+                                                }}
+                                            >
+                                                {pieChartData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip formatter={(value) => formatCurrency(value)} />
+                                            <Legend />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                            
+                            {/* Ad Spend and Revenue Over Time (Line Chart) */}
+                            <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm">
+                                <h2 className="text-xl font-bold text-gray-800 mb-4">Ad Spend & Revenue Over Time</h2>
+                                <div className="h-64 w-full">
+                                    <ResponsiveContainer>
+                                        <LineChart data={[...dailyBreakdown].reverse()} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                            <XAxis dataKey="formattedDate" fontSize={12} />
+                                            <YAxis fontSize={12} tickFormatter={(value) => `$${value/1000}k`} />
+                                            <Tooltip formatter={(value) => formatCurrency(value)} />
+                                            <Legend />
+                                            <Line type="monotone" dataKey="revenue" stroke="#34A853" strokeWidth={2} name="Revenue" />
+                                            <Line type="monotone" dataKey="totalSpend" stroke="#EA4335" strokeWidth={2} name="Total Spend" />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* --- Daily Breakdown Table --- */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm">
+                             <h2 className="text-xl font-bold text-gray-800 mb-4">Daily Breakdown</h2>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-sm text-left text-gray-600">
+                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3">Date</th>
+                                            <th scope="col" className="px-6 py-3 text-right">Google Ads Spend</th>
+                                            <th scope="col" className="px-6 py-3 text-right">Microsoft Ads Spend</th>
+                                            <th scope="col" className="px-6 py-3 text-right">Total Spend</th>
+                                            <th scope="col" className="px-6 py-3 text-right">Revenue</th>
+                                            <th scope="col" className="px-6 py-3 text-right">Profit</th>
+                                            <th scope="col" className="px-6 py-3 text-right">ROAS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {dailyBreakdown.map((day, index) => (
+                                            <tr key={index} className="bg-white border-b hover:bg-gray-50">
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{day.formattedDate}</td>
+                                                <td className="px-6 py-4 text-right">{formatCurrency(day.googleSpend)}</td>
+                                                <td className="px-6 py-4 text-right">{formatCurrency(day.microsoftSpend)}</td>
+                                                <td className="px-6 py-4 text-right font-medium">{formatCurrency(day.totalSpend)}</td>
+                                                <td className="px-6 py-4 text-right text-green-600 font-medium">{formatCurrency(day.revenue)}</td>
+                                                <td className="px-6 py-4 text-right">{formatCurrency(day.profit)}</td>
+                                                <td className="px-6 py-4 text-right font-medium">{formatNumber(day.roas)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Render the App component to the DOM ---
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport d'Optimisation du Quality Score</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #1e3a8a; /* Darker Blue */
+            --secondary-color: #2563eb; /* Bright Blue */
+            --text-color: #1f2937;
+            --text-light: #4b5563;
+            --bg-color: #f9fafb;
+            --white: #ffffff;
+            --border-color: #d1d5db;
+            --cpl-very-high: #c62828;
+            --cpl-high: #ef6c00;
+            --cpl-medium: #1976d2;
+            --cpl-low: #388e3c;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .report-header h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+
+        .report-header p {
+            font-size: 1.1em;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 10px auto 0;
+        }
+
+        .ad-group-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-left-width: 6px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .cpl-badge {
+            font-size: 0.8em;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        /* CPL Badge Colors */
+        .cpl-very-high-badge { background-color: var(--cpl-very-high); }
+        .cpl-high-badge { background-color: var(--cpl-high); }
+        .cpl-medium-badge { background-color: var(--cpl-medium); }
+        .cpl-low-badge { background-color: var(--cpl-low); }
+
+        /* Card Border Colors */
+        .cpl-very-high-card { border-left-color: var(--cpl-very-high); }
+        .cpl-high-card { border-left-color: var(--cpl-high); }
+        .cpl-medium-card { border-left-color: var(--cpl-medium); }
+        .cpl-low-card { border-left-color: var(--cpl-low); }
+
+        .card-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+        }
+        
+        @media (max-width: 900px) {
+            .card-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .blueprint-section h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .usp-list, .blueprint-steps {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .usp-list li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .usp-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 1px;
+            color: var(--cpl-low);
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        
+        .blueprint-steps li {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .blueprint-steps li::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 28px;
+            height: 28px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .blueprint-steps strong {
+            display: block;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .blueprint-steps span {
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+
+        .qs-link-box {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .qs-link-box h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="report-header">
+            <h1>Rapport d'Optimisation du Quality Score</h1>
+            <p>Ce rapport détaille la stratégie de landing pages sur mesure pour chaque groupe d'annonces, conçue pour maximiser la pertinence, l'expérience utilisateur et, par conséquent, votre Quality Score sur Google Ads.</p>
+        </div>
+
+        <div class="ad-group-card cpl-high-card">
+            <div class="card-header">
+                <h2>Cœur de Flotte B2B</h2>
+                <span class="cpl-badge cpl-high-badge">CPL ÉLEVÉ</span>
+            </div>
+            <div class="card-content">
+                <div class="blueprint-section">
+                    <h3>Propositions de Valeur (USPs)</h3>
+                    <ul class="usp-list">
+                        <li>Optimisation des Trajets & Carburant</li>
+                        <li>Rapports de Performance Détaillés</li>
+                        <li>Augmentation de la Productivité Chauffeurs</li>
+                        <li>Solution Conforme et Sécurisée</li>
+                    </ul>
+                    <div class="qs-link-box">
+                        <h4>Impact sur le Quality Score</h4>
+                        <p>Cette page, 100% alignée sur les mots-clés "flotte entreprise", maximise l'<strong>Ad Relevance</strong> et la <strong>Landing Page Experience</strong>, justifiant l'investissement dans ces clics à coût élevé.</p>
+                    </div>
+                </div>
+                <div class="blueprint-section">
+                    <h3>Blueprint de la Landing Page</h3>
+                    <ol class="blueprint-steps">
+                        <li>
+                            <strong>Héro Section Immersive</strong>
+                            <span>H1: "Solution de Gestion de Flotte Entreprise Performante". Sous-titre: "Reprenez le contrôle total de vos véhicules, réduisez vos coûts et maximisez votre rentabilité." CTA principal: "Demander un Devis Personnalisé".</span>
+                        </li>
+                        <li>
+                            <strong>Section "Défis & Solutions"</strong>
+                            <span>Présentez les pain points (coûts carburant, trajets non optimisés, manque de visibilité) et positionnez votre plateforme comme LA solution.</span>
+                        </li>
+                        <li>
+                            <strong>Focus sur le ROI</strong>
+                            <span>Détaillez 3 fonctionnalités clés axées sur le retour sur investissement : Suivi des performances, Éco-conduite, Planification d'itinéraires.</span>
+                        </li>
+                        <li>
+                            <strong>Preuve Sociale (Logos & Témoignages)</strong>
+                            <span>Affichez les logos de vos clients et un témoignage d'un gestionnaire de flotte. "Ils nous font confiance".</span>
+                        </li>
+                         <li>
+                            <strong>Ancrage Prix & CTA Final</strong>
+                            <span>"Une solution complète et rentable dès 8€/mois par véhicule". Bloc de contact clair pour la demande de devis.</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-group-card cpl-medium-card">
+            <div class="card-header">
+                <h2>Niches Actifs & Chantier</h2>
+                <span class="cpl-badge cpl-medium-badge">CPL MOYEN</span>
+            </div>
+             <div class="card-content">
+                <div class="blueprint-section">
+                    <h3>Propositions de Valeur (USPs)</h3>
+                    <ul class="usp-list">
+                        <li>Alertes de Géorepérage Anti-Vol</li>
+                        <li>Inventaire Automatisé du Matériel</li>
+                        <li>Localisation Précise en Temps Réel</li>
+                        <li>Traceurs Robustes et Discrets</li>
+                    </ul>
+                    <div class="qs-link-box">
+                        <h4>Impact sur le Quality Score</h4>
+                        <p>Une page dédiée au BTP et aux actifs assure une pertinence parfaite pour les recherches comme "gps chantier", ce qui booste le CTR et la note de Landing Page Experience.</p>
+                    </div>
+                </div>
+                <div class="blueprint-section">
+                    <h3>Blueprint de la Landing Page</h3>
+                    <ol class="blueprint-steps">
+                        <li>
+                            <strong>Héro Section Spécifique</strong>
+                            <span>H1: "Géolocalisation d'Outillage et Matériel de Chantier". Sous-titre: "Ne perdez plus jamais un outil. Sécurisez vos actifs 24/7." CTA: "Protéger Mon Matériel".</span>
+                        </li>
+                        <li>
+                            <strong>Cas d'Usage Visuels</strong>
+                            <span>Montrez des images claires : un traceur sur une bétonnière, une camionnette d'artisan, une remorque. Parlez le langage de votre cible.</span>
+                        </li>
+                         <li>
+                            <strong>Focus Sécurité & Contrôle</strong>
+                            <span>Détaillez les fonctionnalités : Géorepérage (alertes entrée/sortie de zone), Historique des positions, Autonomie de la batterie.</span>
+                        </li>
+                        <li>
+                            <strong>Pour Quels Métiers ?</strong>
+                            <span>Liste à puces des professions cibles : BTP, Artisans, Paysagistes, Loueurs de matériel... pour que la cible se reconnaisse.</span>
+                        </li>
+                         <li>
+                            <strong>Offre Spécialisée & CTA</strong>
+                            <span>"Traceurs GPS robustes dès 8€/mois". Formulaire simple pour une demande de devis ou d'information.</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-group-card cpl-low-card">
+            <div class="card-header">
+                <h2>Opportunités Rentables</h2>
+                <span class="cpl-badge cpl-low-badge">CPL FAIBLE</span>
+            </div>
+            <div class="card-content">
+                <div class="blueprint-section">
+                    <h3>Propositions de Valeur (USPs)</h3>
+                    <ul class="usp-list">
+                        <li>Solution Complète et Abordable dès 8€</li>
+                        <li>Installation Facile et Rapide</li>
+                        <li>Pas de Frais Cachés, Contrat Flexible</li>
+                        <li>Support Client Basé en France</li>
+                    </ul>
+                     <div class="qs-link-box">
+                        <h4>Impact sur le Quality Score</h4>
+                        <p>Cette page se concentre sur l'accessibilité et la simplicité, répondant parfaitement aux attentes des utilisateurs cherchant une "solution" sans vouloir une complexité excessive.</p>
+                    </div>
+                </div>
+                <div class="blueprint-section">
+                    <h3>Blueprint de la Landing Page</h3>
+                    <ol class="blueprint-steps">
+                        <li>
+                            <strong>Héro Section "Prix et Simplicité"</strong>
+                            <span>H1: "Votre Solution de Géolocalisation Professionnelle dès 8€". Sous-titre: "Simple, efficace et sans surprise. Équipez vos véhicules ou votre matériel à moindre coût." CTA: "Obtenir Mon Tarif".</span>
+                        </li>
+                        <li>
+                            <strong>Section "Comment ça marche ?"</strong>
+                            <span>Un processus simple en 3 étapes : 1. Commandez votre boîtier, 2. Installez-le en 5 minutes, 3. Suivez tout depuis notre plateforme.</span>
+                        </li>
+                        <li>
+                            <strong>Le Pack Complet</strong>
+                            <span>Détaillez ce qui est inclus pour 8€ : le boîtier, l'accès à la plateforme, le support, les fonctionnalités de base. Mettez l'accent sur la valeur.</span>
+                        </li>
+                        <li>
+                            <strong>FAQ (Foire Aux Questions)</strong>
+                            <span>Répondez aux questions simples : Y a-t-il un engagement ? Est-ce compatible avec mon véhicule ? L'installation est-elle compliquée ?</span>
+                        </li>
+                        <li>
+                            <strong>CTA Très Visible</strong>
+                            <span>Un bloc de contact rassurant qui reprend l'offre : "Lancez-vous dès 8€/mois. Demandez votre devis gratuit."</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-group-card cpl-very-high-card">
+            <div class="card-header">
+                <h2>Trafic Large à Qualifier</h2>
+                <span class="cpl-badge cpl-very-high-badge">CPL TRÈS ÉLEVÉ</span>
+            </div>
+            <div class="card-content">
+                <div class="blueprint-section">
+                    <h3>Propositions de Valeur (USPs)</h3>
+                    <ul class="usp-list">
+                        <li>Solution 100% Professionnelle</li>
+                        <li>Dédiée aux Entreprises et Artisans</li>
+                        <li>PAS pour les Particuliers</li>
+                        <li>Conformité RGPD Garantie</li>
+                    </ul>
+                    <div class="qs-link-box">
+                        <h4>Impact sur le Quality Score</h4>
+                        <p>L'objectif ici est de "faire fuir" le trafic non pertinent. En étant ultra-explicite sur la cible B2B, on améliore le taux de conversion des "bons" clics, ce qui, paradoxalement, peut améliorer la Landing Page Experience pour l'audience visée.</p>
+                    </div>
+                </div>
+                <div class="blueprint-section">
+                    <h3>Blueprint de la Landing Page</h3>
+                    <ol class="blueprint-steps">
+                        <li>
+                            <strong>Héro Section de "Filtrage"</strong>
+                            <span>H1: "Système de Géolocalisation pour Véhicules d'Entreprise". Sous-titre très clair : "Attention : Notre solution est exclusivement réservée aux professionnels (flottes, artisans, VTC). Vous êtes un pro ?". CTA: "Oui, Demander un Devis Pro".</span>
+                        </li>
+                        <li>
+                            <strong>Section "Êtes-vous au bon endroit ?"</strong>
+                            <span>Deux colonnes. "Pour les Pros" (checkmarks verts) : suivi de flotte, optimisation, fiscalité. "Pas pour les Particuliers" (croix rouges) : suivi personnel, voiture volée, etc.</span>
+                        </li>
+                        <li>
+                            <strong>Bénéfices pour l'Entreprise</strong>
+                            <span>Mettez en avant les avantages purement business : récupération de la TVA, suivi des heures de travail, justification des déplacements.</span>
+                        </li>
+                        <li>
+                            <strong>Formulaire de Contact Qualifiant</strong>
+                            <span>Demandez obligatoirement le nom de l'entreprise et le numéro de SIRET dans le formulaire pour filtrer les demandes.</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
